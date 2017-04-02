@@ -1,4 +1,5 @@
 <resources>
     <string name="app_name">HSAY</string>
     <string name="title_activity_main_probe">MainActivityProbe</string>
+    <string name="title_activity_das_ist_ein_test">DasIstEinTest</string>
 </resources>
