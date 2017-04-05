@@ -13,8 +13,5 @@ public class ExampleUnitTest {
 
     @Test
     public void addition_isCorrect() throws Exception {
-        MainProbe test = new MainProbe();
-
-        assertEquals(4, test.give4());
     }
 }
