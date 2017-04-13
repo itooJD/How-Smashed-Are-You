@@ -1,4 +1,4 @@
-package com.emptyshit.lockComponent;
+package com.emptyshit.hsay.lockComponent;
 
 /**
  * Created by tungu on 09/04/2017.

@@ -1,4 +1,4 @@
-package com.emptyshit.timeMeasureComponent;
+package com.emptyshit.hsay.timeMeasureComponent;
 
 /**
  * Created by tungu on 09/04/2017.
