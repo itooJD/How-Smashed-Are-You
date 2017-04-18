@@ -1,8 +1,19 @@
 package com.emptyshit.hsay.gameComponent;
 
-/**
- * Created by tungu on 09/04/2017.
- */
+import com.emptyshit.hsay.dataTypes.TimeType;
 
+/**
+ *
+ */
 public class GameComponent implements GameComponentInterface {
+
+    private TimeType timer;
+
+    private void StartTimer(){
+
+    }
+
+    private void endTimer(){
+
+    }
 }

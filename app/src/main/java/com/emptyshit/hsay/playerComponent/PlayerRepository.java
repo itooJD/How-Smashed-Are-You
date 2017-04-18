@@ -24,4 +24,5 @@ public class PlayerRepository implements PlayerRepositoryInterface{
     public Player findPlayerByEmailType(EmailType email) {
         return null;
     }
+
 }

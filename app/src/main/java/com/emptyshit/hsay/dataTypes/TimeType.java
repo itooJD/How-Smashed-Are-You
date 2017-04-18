@@ -1,9 +1,8 @@
 package com.emptyshit.hsay.dataTypes;
 
 /**
- * Created by huynh_phuong_nguyen on 13.04.17.
+ * Representation of the Time
  */
-
 public class TimeType {
 
     private float milliseconds;
@@ -12,22 +11,48 @@ public class TimeType {
         this.milliseconds = milliseconds;
     }
 
-    public boolean isSmaller(TimeType otherTimeType){
-
+    /**
+     * checks if the Time is smaller than the other Time
+     * @param otherTimeType
+     * @return
+     */
+    public boolean isSmallerThan(TimeType otherTimeType){
         return this.getMilliseconds() < otherTimeType.getMilliseconds();
     }
 
+    /**
+     * add two times together
+     * @param otherTimeType
+     * @return
+     */
     public TimeType add(TimeType otherTimeType){
         return new TimeType(this.milliseconds + otherTimeType.getMilliseconds());
     }
+
+    /**
+     * multiply two times together
+     * @param number
+     * @return
+     */
     public TimeType multiply(float number){
         return new TimeType(this.milliseconds * number);
     }
 
+    /**
+     * devide two times x.devide(y) => x / y
+     * @param number
+     * @return
+     */
     public TimeType divide(int number){
        return  new TimeType(this.milliseconds/ number);
     }
-    private float getMilliseconds() {
+
+    public float getMilliseconds() {
         return this.milliseconds;
+    }
+
+    @Override
+    public String toString(){
+        return this.milliseconds + " ms";
     }
 }

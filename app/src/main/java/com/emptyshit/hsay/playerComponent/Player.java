@@ -6,6 +6,10 @@ import java.lang.Object;
 
 import org.greenrobot.greendao.annotation.*;
 
+
+/**
+ * Representation of a Player
+ */
 @Entity
 public class Player {
 
@@ -19,17 +23,11 @@ public class Player {
 
     private String password;
 
-    public Player(){
-
+    @Generated(hash = 30709322)
+    public Player() {
     }
 
-    public Player(String playerName,EmailType email,String password){
-        this.email = email;
-        this.password = password;
-        this.playerName = playerName;
-    }
-
-    @Generated(hash = 822864597)
+  @Generated(hash = 822864597)
     public Player(long playerID, String playerName, EmailType email, String password) {
         this.playerID = playerID;
         this.playerName = playerName;
