@@ -1,4 +1,4 @@
-package com.emptyshit.hsay.DataTypes;
+package com.emptyshit.hsay.dataTypes;
 
 import java.util.regex.Pattern;
 
@@ -23,8 +23,12 @@ public class EmailType {
         return Pattern.matches(EMAIL_PATTERN,email);
     }
 
+    public String getEmail(){
+        return new String(this.email);
+    }
+
     @Override
     public String toString(){
-        return this.email;
+        return new String(this.email);
     }
 }

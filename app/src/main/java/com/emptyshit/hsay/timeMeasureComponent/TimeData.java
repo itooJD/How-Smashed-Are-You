@@ -1,25 +1,53 @@
 package com.emptyshit.hsay.timeMeasureComponent;
 
-import com.emptyshit.hsay.DataTypes.TimeType;
+import com.emptyshit.hsay.dataTypes.TimeType;
+
+import org.greenrobot.greendao.annotation.Entity;
+import org.greenrobot.greendao.annotation.Id;
+import org.greenrobot.greendao.annotation.ToOne;
+import org.greenrobot.greendao.annotation.Transient;
 
 import java.util.ArrayList;
+import org.greenrobot.greendao.annotation.Generated;
 
 /**
  * Created by tungu on 09/04/2017.
  */
 
+@Entity
 public class TimeData {
 
+    // fehlt eine Relation zu Player
+    @Id
     private int playerID;
+
     private int gameID;
+
+    @Transient
     private TimeType bestTimeType = null;
+
+    @Transient
     private TimeType avgTimeType = null;
+
+    @Transient
     private ArrayList<TimeType> timeTypeLine = new ArrayList<TimeType>();
+
     private int timesPlayed = 0;
 
     public TimeData(int playerID, int gameID){
         this.playerID = playerID;
         this.gameID = gameID;
+    }
+
+    @Generated(hash = 2106540647)
+    public TimeData(int playerID, int gameID, int timesPlayed) {
+        this.playerID = playerID;
+        this.gameID = gameID;
+        this.timesPlayed = timesPlayed;
+    }
+
+    @Generated(hash = 61090496)
+    public TimeData() {
     }
 
     private int setBestTime(TimeType bestTimeType){
@@ -68,5 +96,17 @@ public class TimeData {
 
     public int getTimesPlayed() {
         return timesPlayed;
+    }
+
+    public void setPlayerID(int playerID) {
+        this.playerID = playerID;
+    }
+
+    public void setGameID(int gameID) {
+        this.gameID = gameID;
+    }
+
+    public void setTimesPlayed(int timesPlayed) {
+        this.timesPlayed = timesPlayed;
     }
 }
