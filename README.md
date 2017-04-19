@@ -1,7 +1,5 @@
 # Project: How-Smashed-Are-You
 
-[TOC]
-
 ##### Introduction
 
 ##### Groupmembers
