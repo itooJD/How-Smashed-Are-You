@@ -1,6 +1,6 @@
 package com.emptyshit.hsay.timeMeasureComponent;
 
-import com.emptyshit.hsay.DataTypes.*;
+import com.emptyshit.hsay.dataTypes.*;
 
 /**
  * Created by tungu on 09/04/2017.

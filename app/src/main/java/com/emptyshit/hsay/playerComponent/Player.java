@@ -1,19 +1,23 @@
 package com.emptyshit.hsay.playerComponent;
 
-import com.emptyshit.hsay.DataTypes.EmailType;
+import com.emptyshit.hsay.dataTypes.EmailType;
+import org.greenrobot.greendao.annotation.*;
 
 /**
  * Created by tungu on 09/04/2017.
  */
 
+
 public class Player {
+
     private int playerID;
+
     private String playerName;
     private EmailType email;
     private String password;
 
-    public Player(){
-
+    public Player(int id){
+        this.playerID = id;
     }
 
     public Player(String playerName,EmailType email,String password){

@@ -1,4 +1,4 @@
-package com.emptyshit.hsay.DataTypes;
+package com.emptyshit.hsay.dataTypes;
 
 import java.util.regex.Pattern;
 

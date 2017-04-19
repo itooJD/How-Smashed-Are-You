@@ -1,6 +1,6 @@
 package com.emptyshit.hsay.timeMeasureComponent;
 
-import com.emptyshit.hsay.DataTypes.TimeType;
+import com.emptyshit.hsay.dataTypes.TimeType;
 
 import java.util.ArrayList;
 
