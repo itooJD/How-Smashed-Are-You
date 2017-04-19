@@ -1,4 +1,4 @@
-package com.emptyshit.hsay.DataTypes;
+package com.emptyshit.hsay.dataTypes;
 
 /**
  * Created by huynh_phuong_nguyen on 13.04.17.
