@@ -43,5 +43,6 @@ dependencies {
     testCompile 'junit:junit:4.12'
 
     // greenDAO
-    compile 'org.greenrobot:greendao:3.2.2' // add library
+    compile 'org.greenrobot:greendao:3.2.2'
 }
+

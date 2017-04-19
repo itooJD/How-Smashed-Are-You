@@ -2,10 +2,12 @@ package com.emptyshit.hsay.timeMeasureComponent;
 
 import com.emptyshit.hsay.dataTypes.TimeType;
 
+
 import org.greenrobot.greendao.annotation.Entity;
 import org.greenrobot.greendao.annotation.Id;
 import org.greenrobot.greendao.annotation.ToOne;
 import org.greenrobot.greendao.annotation.Transient;
+
 
 import java.util.ArrayList;
 import org.greenrobot.greendao.annotation.Generated;
