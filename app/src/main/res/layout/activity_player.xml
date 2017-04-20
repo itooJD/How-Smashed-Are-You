@@ -1,0 +1,74 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.design.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context="com.emptyshit.hsay.playerComponent.PlayerActivityFront">
+
+    <android.support.constraint.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <include layout="@layout/content_player"
+            tools:layout_editor_absoluteY="130dp"
+            tools:layout_editor_absoluteX="16dp" />
+
+        <EditText
+            android:id="@+id/Passwort"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:ems="10"
+            android:inputType="textPassword"
+            tools:layout_editor_absoluteX="93dp"
+            tools:layout_editor_absoluteY="301dp" />
+
+        <EditText
+            android:id="@+id/Email"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:ems="10"
+            android:inputType="textEmailAddress"
+            tools:layout_editor_absoluteX="93dp"
+            tools:layout_editor_absoluteY="208dp" />
+
+        <Button
+            android:id="@+id/Erstellen"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Erstellen"
+            tools:layout_editor_absoluteY="433dp"
+            tools:layout_editor_absoluteX="209dp" />
+
+        <EditText
+            android:id="@+id/Benutzername"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:ems="10"
+            android:inputType="textPersonName"
+            android:text="Benutzername"
+            tools:layout_editor_absoluteY="112dp"
+            tools:layout_editor_absoluteX="54dp" />
+
+        <EditText
+            android:id="@+id/EmailText"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:ems="10"
+            android:inputType="textPersonName"
+            android:text="Email"
+            tools:layout_editor_absoluteY="208dp"
+            tools:layout_editor_absoluteX="54dp" />
+
+        <EditText
+            android:id="@+id/PasswortTest"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:ems="10"
+            android:inputType="textPersonName"
+            android:text="Passwort"
+            tools:layout_editor_absoluteY="301dp"
+            tools:layout_editor_absoluteX="54dp" />
+    </android.support.constraint.ConstraintLayout>
+
+</android.support.design.widget.CoordinatorLayout>
