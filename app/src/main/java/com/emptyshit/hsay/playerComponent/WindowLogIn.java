@@ -10,7 +10,7 @@ import android.widget.TextView;
 
 import com.emptyshit.hsay.R;
 
-public class LogInWindow extends AppCompatActivity {
+public class WindowLogIn extends AppCompatActivity {
 
     private TextView logInPasswordTextView, logInUserNameTextView, logInToRegisterTextView;
     private EditText logInUserNameEditText, logInPasswordEditText;
@@ -19,7 +19,7 @@ public class LogInWindow extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_log_in);
+        setContentView(R.layout.activity_window_log_in);
 
         logInPasswordTextView = (TextView) findViewById(R.id.logInPasswordTextView);
         logInUserNameTextView = (TextView) findViewById(R.id.logInUserNameTextView);
@@ -30,20 +30,17 @@ public class LogInWindow extends AppCompatActivity {
     }
 
     private void setupClickListener(){
-        logInConfirmButton.setOnClickListener(new View.OnClickListener() {
+        logInConfirmButton.setOnClickListener(new View.OnClickListener(){
             @Override
-            public void onClick(View view) {
-                //TODO
-                // call method from PlayerComponent
-                //   e.g.: boolean logIn(username, password)
-                // redirect further
+            public void onClick(View view){
+
             }
         });
         logInToRegisterTextView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                //TODO
-                // redirect to Registration
+                Intent intent = new Intent(getApplicationContext(), WindowRegister.class);
+                startActivity(intent);
             }
         });
     }

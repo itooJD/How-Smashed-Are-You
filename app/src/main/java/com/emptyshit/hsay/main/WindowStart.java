@@ -7,12 +7,11 @@ import android.view.View;
 import android.content.Intent;
 import android.widget.Button;
 
-import com.emptyshit.hsay.GameEnterTheName;
-import com.emptyshit.hsay.playerComponent.LogInWindow;
+import com.emptyshit.hsay.playerComponent.WindowLogIn;
 
 import com.emptyshit.hsay.R;
 
-public class StartWindow extends AppCompatActivity {
+public class WindowStart extends AppCompatActivity {
 
     private Button startWindowRegisterButton;
     private Button startWindowPlayWithoutSignIn;
@@ -20,7 +19,7 @@ public class StartWindow extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_start_window);
+        setContentView(R.layout.activity_window_start);
         startWindowRegisterButton = (Button) findViewById(R.id.startWindowRegisterButton);
         startWindowPlayWithoutSignIn = (Button) findViewById(R.id.startWindowPlayWithoutSignIn);
         setupClickListener();
@@ -30,17 +29,15 @@ public class StartWindow extends AppCompatActivity {
         startWindowRegisterButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                //TODO
-                // change
-                Intent intent = new Intent(getApplicationContext(), GameEnterTheName.class);
+                Intent intent = new Intent(getApplicationContext(), WindowLogIn.class);
                 startActivity(intent);
             }
         });
         startWindowPlayWithoutSignIn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent intent = new Intent(getApplicationContext(), LogInWindow.class);
-                startActivity(intent);
+                //TODO
+                // change
             }
         });
     }
