@@ -1,4 +1,0 @@
-// package
-
-// Spielimplementierung
-//TODO
