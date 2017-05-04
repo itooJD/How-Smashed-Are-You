@@ -1,19 +1,21 @@
 package com.emptyshit.hsay.timeMeasureComponent;
 
 import com.emptyshit.hsay.dataTypes.TimeType;
+import com.emptyshit.hsay.dataTypes.TimeTypeConverter;
 
+import org.greenrobot.greendao.annotation.Convert;
 import org.greenrobot.greendao.annotation.Entity;
+import org.greenrobot.greendao.annotation.Generated;
 import org.greenrobot.greendao.annotation.Id;
-import org.greenrobot.greendao.annotation.ToOne;
 import org.greenrobot.greendao.annotation.Transient;
 
+
 import java.util.ArrayList;
-import org.greenrobot.greendao.annotation.Generated;
+
 
 /**
- * Created by tungu on 09/04/2017.
+ * Representation of the Time
  */
-
 @Entity
 public class TimeData {
 
@@ -23,35 +25,34 @@ public class TimeData {
 
     private int gameID;
 
-    @Transient
+    @Convert(converter = TimeTypeConverter.class, columnType = Float.class)
     private TimeType bestTimeType = null;
 
-    @Transient
+    @Convert(converter = TimeTypeConverter.class, columnType = Float.class)
     private TimeType avgTimeType = null;
 
+    // TimeType eine eigene Entität?
     @Transient
     private ArrayList<TimeType> timeTypeLine = new ArrayList<TimeType>();
 
     private int timesPlayed = 0;
 
-    public TimeData(int playerID, int gameID){
-        this.playerID = playerID;
-        this.gameID = gameID;
-    }
-
-    @Generated(hash = 2106540647)
-    public TimeData(int playerID, int gameID, int timesPlayed) {
-        this.playerID = playerID;
-        this.gameID = gameID;
-        this.timesPlayed = timesPlayed;
-    }
 
     @Generated(hash = 61090496)
     public TimeData() {
     }
 
+    @Generated(hash = 1642838466)
+    public TimeData(int playerID, int gameID, TimeType bestTimeType, TimeType avgTimeType, int timesPlayed) {
+        this.playerID = playerID;
+        this.gameID = gameID;
+        this.bestTimeType = bestTimeType;
+        this.avgTimeType = avgTimeType;
+        this.timesPlayed = timesPlayed;
+    }
+
     private int setBestTime(TimeType bestTimeType){
-        if(bestTimeType.isSmaller(bestTimeType)) {
+        if(bestTimeType.isSmallerThan(bestTimeType)) {
             this.bestTimeType = bestTimeType;
             return 1;
         }
@@ -108,5 +109,13 @@ public class TimeData {
 
     public void setTimesPlayed(int timesPlayed) {
         this.timesPlayed = timesPlayed;
+    }
+
+    public void setBestTimeType(TimeType bestTimeType) {
+        this.bestTimeType = bestTimeType;
+    }
+
+    public void setAvgTimeType(TimeType avgTimeType) {
+        this.avgTimeType = avgTimeType;
     }
 }
