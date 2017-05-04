@@ -3,10 +3,16 @@ package com.emptyshit.hsay.playerComponent;
 import com.emptyshit.hsay.dataTypes.EmailType;
 
 public interface PlayerComponentInterface {
+	
+	public boolean register(String playername, EmailType email, String password, String passwordConfirm);
 
-    public boolean createDummyPlayer();
-
-    public boolean confirmPlayer(String playerName, String password);
-
-    public boolean registerPlayer(String playerName, EmailType email, String password);
+	public boolean withoutRegister();
+	
+	public boolean login(String playername, String password);
+	
+	public boolean delete();
+	
+	public String getUsername();
+	
+	public String getEmail();
 }

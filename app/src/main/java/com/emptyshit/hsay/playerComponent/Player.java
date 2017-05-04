@@ -24,54 +24,58 @@ public class Player {
     private String password;
 
     @Generated(hash = 30709322)
-    public Player() {
+    Player() {
     }
 
   @Generated(hash = 822864597)
-    public Player(long playerID, String playerName, EmailType email, String password) {
+    Player(long playerID, String playerName, EmailType email, String password) {
         this.playerID = playerID;
         this.playerName = playerName;
         this.email = email;
         this.password = password;
     }
 
-    public void setPlayerID(long playerID) {
+    void setPlayerID(long playerID) {
         this.playerID = playerID;
     }
 
-    public String setPlayerName(String playername){
+    String setPlayerName(String playername){
         this.playerName = playername;
         return this.playerName;
     }
 
-    public EmailType setEmail(EmailType email){
+    EmailType setEmail(EmailType email){
         this.email = email;
         return this.email;
     }
 
-    public String setPassword(String password){
+    String setPassword(String password){
         this.password = password;
         return this.password;
     }
 
-    public long getPlayerID() {
+    long getPlayerID() {
         return this.playerID;
     }
 
-    public String getPlayerName(){
+    String getPlayerName(){
         return this.playerName;
     }
 
-    public EmailType getEmail(){
+    EmailType getEmail(){
         return this.email;
     }
 
-    public String getPassword(){
+    String getPassword(){
         return this.password;
+    }
+    
+    boolean comparePassword(String password){
+    	return this.password.equals(password);
     }
 
     @Override
-    public boolean equals(Object o) {
+    boolean equals(Object o) {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
 
@@ -86,7 +90,7 @@ public class Player {
     }
 
     @Override
-    public int hashCode() {
+    int hashCode() {
         int result = (int) (playerID ^ (playerID >>> 32));
         result = 31 * result + (playerName != null ? playerName.hashCode() : 0);
         result = 31 * result + (email != null ? email.hashCode() : 0);
