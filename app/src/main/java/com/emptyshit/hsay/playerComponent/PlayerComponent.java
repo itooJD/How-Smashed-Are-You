@@ -11,14 +11,18 @@ public class PlayerComponent implements PlayerComponentInterface {
 	}
 
 	@Override
-	public boolean register(String playername, String email, String password, String passwordConfirm) {
-		if (!(checlValidString(playername) || checlValidString(email) || checlValidString(password)
-				|| checlValidString(passwordConfirm))) {
+	public boolean register(String playername, String emailString, String password, String passwordConfirm) {
+		if (!(checkValidString(playername) || checkValidString(emailString) || checkValidString(password)
+				|| checkValidString(passwordConfirm))) {
 			return false;
 		}
 
 		if (password.equals(passwordConfirm)) {
-			Player player = new Player(playername, email, password);
+			EmailType email = new EmailType(emailString);
+			Player player = new Player();
+			player.setPlayerName(playername);
+			player.setEmail(email);
+			player.setPassword(password);
 			saveLocalPlayer(player);
 			return true;
 		} else {
@@ -30,13 +34,14 @@ public class PlayerComponent implements PlayerComponentInterface {
 	public boolean withoutRegister() {
 		if(getLocalPlayer() == null){
 			Player player = new Player();
-			return false;
+			return true;
 		}
+		return false;
 	}
 
 	@Override
 	public boolean login(String playername, String password) {
-		Player player = playerRepository.findUserbyPlayerName();
+		Player player = playerRepository.findPlayerByName(playername);
 		if(player != null){
 			player.comparePassword(password);
 		}
@@ -68,6 +73,7 @@ public class PlayerComponent implements PlayerComponentInterface {
 	@Override
 	public String getEmail() {
 		//TODO
+		return null;
 	}
 
 	private Player getLocalPlayer() {
@@ -76,16 +82,18 @@ public class PlayerComponent implements PlayerComponentInterface {
 		// if file not exist
 		// 		return null
 		// else return Player
+		return null;
 	}
 
 	private boolean saveLocalPlayer(Player player) {
 		//TODO
 		// load or create file
 		// save player into the file
+		return true;
 
 	}
 
-	private boolean checkValidString(String string) {
-		return !playername.equals("") && !playername == null;
+	private boolean checkValidString(String text) {
+		return !text.equals("") && !(text == null);
 	}
 }

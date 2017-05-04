@@ -4,15 +4,15 @@ import com.emptyshit.hsay.dataTypes.EmailType;
 
 public interface PlayerComponentInterface {
 	
-	public boolean register(String playername, EmailType email, String password, String passwordConfirm);
+	boolean register(String playername, String email, String password, String passwordConfirm);
 
-	public boolean withoutRegister();
+	boolean withoutRegister();
 	
-	public boolean login(String playername, String password);
+	boolean login(String playername, String password);
 	
-	public boolean delete();
+	boolean delete();
 	
-	public String getUsername();
+	String getUsername();
 	
-	public String getEmail();
+	String getEmail();
 }

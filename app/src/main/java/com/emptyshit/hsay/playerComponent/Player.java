@@ -14,6 +14,7 @@ import org.greenrobot.greendao.annotation.*;
 public class Player {
 
     @Id
+    @Generated
     private long playerID;
 
     private String playerName;
@@ -24,16 +25,16 @@ public class Player {
     private String password;
 
     @Generated(hash = 30709322)
-    Player() {
+    public Player() {
     }
 
   @Generated(hash = 822864597)
-    Player(long playerID, String playerName, EmailType email, String password) {
-        this.playerID = playerID;
-        this.playerName = playerName;
-        this.email = email;
-        this.password = password;
-    }
+public Player(long playerID, String playerName, EmailType email, String password) {
+    this.playerID = playerID;
+    this.playerName = playerName;
+    this.email = email;
+    this.password = password;
+}
 
     void setPlayerID(long playerID) {
         this.playerID = playerID;
@@ -75,7 +76,7 @@ public class Player {
     }
 
     @Override
-    boolean equals(Object o) {
+    public boolean equals(Object o) {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
 
@@ -90,7 +91,7 @@ public class Player {
     }
 
     @Override
-    int hashCode() {
+    public int hashCode() {
         int result = (int) (playerID ^ (playerID >>> 32));
         result = 31 * result + (playerName != null ? playerName.hashCode() : 0);
         result = 31 * result + (email != null ? email.hashCode() : 0);

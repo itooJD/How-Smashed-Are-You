@@ -1,6 +1,8 @@
 package com.emptyshit.hsay.playerComponent;
 
 import com.emptyshit.hsay.dataTypes.EmailType;
+
+import java.util.ArrayList;
 // import greenDAO
 
 
@@ -8,25 +10,39 @@ import com.emptyshit.hsay.dataTypes.EmailType;
  * Created by tungu on 18/04/2017.
  */
 
-public class PlayerRepository implements PlayerRepositoryInterface {
+public class PlayerRepository implements PlayerRepositoryInterface{
 
-	/**
-	 * greendao
-	 */
-	
-	// noUserFoundException
-	Player findPlayerById(int id){
-		//TODO
-		
+	public PlayerRepository(){
+
+	}
+
+	@Override
+	public ArrayList<Player> getAllPlayers() {
 		return null;
 	}
 
-	Player findPlayerByUserName(String username) {
+	@Override
+	public Player save(Player player) {
 		return null;
 	}
 
-	Player findPlayerByEmailType(String email) {
+	@Override
+	public Player delete(long id) {
 		return null;
 	}
 
+	@Override
+	public Player findPlayerById(long id) {
+		return null;
+	}
+
+	@Override
+	public Player findPlayerByName(String username) {
+		return null;
+	}
+
+	@Override
+	public Player findPlayerByEmail(String email) {
+		return null;
+	}
 }
