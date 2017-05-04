@@ -32,7 +32,7 @@ public class Player {
         this.playerName = playerName;
     }
 
-    @Generated(hash = 822864597)
+  @Generated(hash = 822864597)
     public Player(long playerID, String playerName, EmailType email, String password) {
         this.playerID = playerID;
         this.playerName = playerName;
