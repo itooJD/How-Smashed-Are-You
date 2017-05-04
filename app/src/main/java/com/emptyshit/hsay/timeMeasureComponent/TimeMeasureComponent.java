@@ -9,12 +9,14 @@ import com.emptyshit.hsay.playerComponent.PlayerComponentInterface;
 
 public class TimeMeasureComponent implements TimeMeasureComponentInterface {
 
+    private PlayerComponentInterface playerComponentInterface;
+
     public TimeMeasureComponent(){
 
     }
 
     public TimeMeasureComponent(PlayerComponentInterface playerComponentInterface){
-
+        this.playerComponentInterface = playerComponentInterface;
     }
 
     @Override
