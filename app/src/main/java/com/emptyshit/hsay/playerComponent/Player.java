@@ -3,13 +3,12 @@ package com.emptyshit.hsay.playerComponent;
 import com.emptyshit.hsay.dataTypes.EmailType;
 import com.emptyshit.hsay.dataTypes.EmailTypeConverter;
 import java.lang.Object;
+import org.greenrobot.greendao.annotation.*;
+
 
 import org.greenrobot.greendao.annotation.*;
 
 
-/**
- * Representation of a Player
- */
 @Entity
 public class Player {
 
@@ -23,8 +22,14 @@ public class Player {
 
     private String password;
 
-    @Generated(hash = 30709322)
-    public Player() {
+    public Player(int id){
+        this.playerID = id;
+    }
+
+    public Player(String playerName,EmailType email,String password){
+        this.email = email;
+        this.password = password;
+        this.playerName = playerName;
     }
 
   @Generated(hash = 822864597)
@@ -33,6 +38,10 @@ public class Player {
         this.playerName = playerName;
         this.email = email;
         this.password = password;
+    }
+
+    @Generated(hash = 30709322)
+    public Player() {
     }
 
     public void setPlayerID(long playerID) {
