@@ -15,7 +15,8 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
         <activity android:name=".playerComponent.WindowLogIn" />
-        <activity android:name=".playerComponent.WindowRegister"></activity>
+        <activity android:name=".playerComponent.WindowRegister" />
+        <activity android:name=".Delete"></activity>
     </application>
 
 </manifest>

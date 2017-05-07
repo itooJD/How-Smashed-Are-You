@@ -15,7 +15,7 @@ public class Player {
 
     @Id
     @Generated
-    private long playerID;
+    private Long playerID;
 
     private String playerName;
 
@@ -28,15 +28,15 @@ public class Player {
     public Player() {
     }
 
-  @Generated(hash = 822864597)
-public Player(long playerID, String playerName, EmailType email, String password) {
-    this.playerID = playerID;
-    this.playerName = playerName;
-    this.email = email;
-    this.password = password;
-}
+    @Generated(hash = 745898692)
+    public Player(Long playerID, String playerName, EmailType email, String password) {
+        this.playerID = playerID;
+        this.playerName = playerName;
+        this.email = email;
+        this.password = password;
+    }
 
-    void setPlayerID(long playerID) {
+    void setPlayerID(Long playerID) {
         this.playerID = playerID;
     }
 
@@ -55,7 +55,7 @@ public Player(long playerID, String playerName, EmailType email, String password
         return this.password;
     }
 
-    long getPlayerID() {
+    Long getPlayerID() {
         return this.playerID;
     }
 
@@ -70,32 +70,29 @@ public Player(long playerID, String playerName, EmailType email, String password
     String getPassword(){
         return this.password;
     }
-    
+
     boolean comparePassword(String password){
-    	return this.password.equals(password);
+        return this.password.equals(password);
     }
 
-    @Override
+   // @Override
     public boolean equals(Object o) {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
 
         Player player = (Player) o;
 
-        if (playerID != player.playerID) return false;
-        if (playerName != null ? !playerName.equals(player.playerName) : player.playerName != null)
-            return false;
-        if (email != null ? !email.equals(player.email) : player.email != null) return false;
-        return password != null ? password.equals(player.password) : player.password == null;
+        if (!playerName.equals(player.playerName)) return false;
+        if (!email.equals(player.email)) return false;
+        return password.equals(player.password);
 
     }
 
-    @Override
+    //@Override
     public int hashCode() {
-        int result = (int) (playerID ^ (playerID >>> 32));
-        result = 31 * result + (playerName != null ? playerName.hashCode() : 0);
-        result = 31 * result + (email != null ? email.hashCode() : 0);
-        result = 31 * result + (password != null ? password.hashCode() : 0);
+        int result = playerName.hashCode();
+        result = 31 * result + email.hashCode();
+        result = 31 * result + password.hashCode();
         return result;
     }
 }

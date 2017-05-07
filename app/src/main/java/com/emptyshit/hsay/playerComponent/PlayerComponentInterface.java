@@ -14,5 +14,5 @@ public interface PlayerComponentInterface {
 	
 	String getUsername();
 	
-	String getEmail();
+	EmailType getEmail();
 }

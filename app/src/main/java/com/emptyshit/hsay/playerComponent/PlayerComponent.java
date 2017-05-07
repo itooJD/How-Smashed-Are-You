@@ -4,10 +4,13 @@ import com.emptyshit.hsay.dataTypes.EmailType;
 
 public class PlayerComponent implements PlayerComponentInterface {
 
-	PlayerRepository playerRepository;
+	private PlayerRepositoryInterface playerRepositoryInterface;
 
-	public PlayerComponent(PlayerRepository playerRepository){
-		this.playerRepository = playerRepository;
+	//TODO
+	private Player player;
+
+	public PlayerComponent(PlayerRepositoryInterface playerRepositoryInterface){
+		this.playerRepositoryInterface = playerRepositoryInterface;
 	}
 
 	@Override
@@ -16,7 +19,6 @@ public class PlayerComponent implements PlayerComponentInterface {
 				|| checkValidString(passwordConfirm))) {
 			return false;
 		}
-
 		if (password.equals(passwordConfirm)) {
 			EmailType email = new EmailType(emailString);
 			Player player = new Player();
@@ -24,6 +26,7 @@ public class PlayerComponent implements PlayerComponentInterface {
 			player.setEmail(email);
 			player.setPassword(password);
 			saveLocalPlayer(player);
+			playerRepositoryInterface.save(player);
 			return true;
 		} else {
 			return false;
@@ -34,6 +37,7 @@ public class PlayerComponent implements PlayerComponentInterface {
 	public boolean withoutRegister() {
 		if(getLocalPlayer() == null){
 			Player player = new Player();
+			saveLocalPlayer(player);
 			return true;
 		}
 		return false;
@@ -41,9 +45,10 @@ public class PlayerComponent implements PlayerComponentInterface {
 
 	@Override
 	public boolean login(String playername, String password) {
-		Player player = playerRepository.findPlayerByName(playername);
-		if(player != null){
-			player.comparePassword(password);
+		Player player = playerRepositoryInterface.findPlayerByName(playername);
+		if(player != null && player.comparePassword(password)){
+			saveLocalPlayer(player);
+			return true;
 		}
 		return false;
 	}
@@ -52,7 +57,7 @@ public class PlayerComponent implements PlayerComponentInterface {
 	public boolean delete() {
 		Player player = getLocalPlayer();
 		if(player != null){
-			
+			playerRepositoryInterface.delete(player.getPlayerID());
 			return true;
 		}
 		return false;
@@ -60,10 +65,7 @@ public class PlayerComponent implements PlayerComponentInterface {
 
 	@Override
 	public String getUsername() {
-		//TODO
-		//try{
 		Player player = getLocalPlayer();
-	// } catch()
 		if(player != null){
 			return player.getPlayerName();
 		}
@@ -71,25 +73,27 @@ public class PlayerComponent implements PlayerComponentInterface {
 	}
 
 	@Override
-	public String getEmail() {
-		//TODO
-		return null;
+	public EmailType getEmail() {
+		Player player = getLocalPlayer();
+		return player.getEmail();
 	}
 
 	private Player getLocalPlayer() {
+
 		//TODO
 		// load from local file
 		// if file not exist
 		// 		return null
 		// else return Player
-		return null;
+		return this.player;
 	}
 
 	private boolean saveLocalPlayer(Player player) {
-		//TODO
-		// load or create file
-		// save player into the file
-		return true;
+		if(player != null){
+			this.player = player;
+			return true;
+		}
+		return false;
 
 	}
 

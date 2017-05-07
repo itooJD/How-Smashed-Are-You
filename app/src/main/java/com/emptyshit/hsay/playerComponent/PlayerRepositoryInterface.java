@@ -1,6 +1,6 @@
 package com.emptyshit.hsay.playerComponent;
 
-import java.util.ArrayList;
+import java.util.List;
 
 /**
  * Created by tungu on 04/05/2017.
@@ -8,7 +8,7 @@ import java.util.ArrayList;
 
 public interface PlayerRepositoryInterface {
 
-    ArrayList<Player> getAllPlayers();
+    List<Player> getAllPlayers();
 
     Player save(Player player);
 

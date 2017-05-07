@@ -2,8 +2,9 @@ package com.emptyshit.hsay.playerComponent;
 
 import com.emptyshit.hsay.dataTypes.EmailType;
 
-import java.util.ArrayList;
-// import greenDAO
+import org.greenrobot.greendao.query.QueryBuilder;
+
+import java.util.List;
 
 
 /**
@@ -12,37 +13,54 @@ import java.util.ArrayList;
 
 public class PlayerRepository implements PlayerRepositoryInterface{
 
-	public PlayerRepository(){
+	private PlayerDao playerDao;
+	private QueryBuilder<Player> queryBuilder;
 
+	public PlayerRepository(DaoSession daoSession){
+		this.playerDao = daoSession.getPlayerDao();
 	}
 
 	@Override
-	public ArrayList<Player> getAllPlayers() {
-		return null;
+	public List<Player> getAllPlayers() {
+		return playerDao.loadAll();
 	}
 
 	@Override
 	public Player save(Player player) {
-		return null;
+		long id = this.playerDao.insert(player);
+		player = this.playerDao.load(id);
+		return player;
 	}
 
 	@Override
 	public Player delete(long id) {
-		return null;
+		Player player = findPlayerById(id);
+		this.playerDao.deleteByKey(id);
+		return player;
 	}
 
 	@Override
 	public Player findPlayerById(long id) {
-		return null;
+		return this.playerDao.load(id);
 	}
 
 	@Override
 	public Player findPlayerByName(String username) {
+		this.queryBuilder = this.playerDao.queryBuilder().where(PlayerDao.Properties.PlayerName.eq(username));
+		List<Player> playerList = this.queryBuilder.list();
+		if(playerList.size() == 1){
+			return playerList.get(0);
+		}
 		return null;
 	}
 
 	@Override
 	public Player findPlayerByEmail(String email) {
+		queryBuilder = this.playerDao.queryBuilder().where(PlayerDao.Properties.Email.eq(new EmailType(email)));
+		List<Player> playerList = this.queryBuilder.list();
+		if(playerList.size() == 1){
+			return playerList.get(0);
+		}
 		return null;
 	}
 }

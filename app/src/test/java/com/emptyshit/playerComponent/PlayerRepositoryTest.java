@@ -1,33 +1,57 @@
 package com.emptyshit.playerComponent;
 
+import android.content.Context;
 
-
+import com.emptyshit.hsay.BuildConfig;
+import com.emptyshit.hsay.application.App;
 import com.emptyshit.hsay.dataTypes.EmailType;
+import com.emptyshit.hsay.playerComponent.DaoMaster;
+import com.emptyshit.hsay.playerComponent.DaoSession;
 import com.emptyshit.hsay.playerComponent.Player;
 import com.emptyshit.hsay.playerComponent.PlayerRepository;
 import com.emptyshit.hsay.playerComponent.PlayerRepositoryInterface;
 
-import org.junit.*;
+import org.greenrobot.greendao.database.Database;
+import org.junit.After;
+import org.junit.Before;
+import org.junit.Test;
+import org.junit.runner.RunWith;
+import org.robolectric.RobolectricTestRunner;
+import org.robolectric.RuntimeEnvironment;
+
 import static org.junit.Assert.*;
 
-import java.util.ArrayList;
+import java.util.List;
 
 /**
  * Created by tungu on 04/05/2017.
  */
 
+@RunWith(RobolectricTestRunner.class)
 public class PlayerRepositoryTest {
 
-    private PlayerRepositoryInterface playerRepositoryInterface = new PlayerRepository();
+    private App application = new App();
+    private PlayerRepositoryInterface playerRepositoryInterface;
+
     private Player john;
     private Player doe;
     private Player three;
 
+    private Context context;
+    private DaoSession daoSession;
+
     @Before
     public void construct(){
-        this.john = new Player(1, "john", new EmailType("john@test.de"), "123465");
-        this.doe = new Player(2, "doe", new EmailType("doe@test.de"), "132456");
-        this.three = new Player(3, "three", new EmailType("three@test.de"), "123456");
+
+        this.context = RuntimeEnvironment.application;
+        DaoMaster.DevOpenHelper helper = new DaoMaster.DevOpenHelper(this.context, "db");
+        Database db = helper.getWritableDb();
+        daoSession = new DaoMaster(db).newSession();
+        playerRepositoryInterface = new PlayerRepository(daoSession);
+
+        this.john = new Player(new Long(1), "john", new EmailType("john@test.de"), "123465");
+        this.doe = new Player(new Long(2), "doe", new EmailType("doe@test.de"), "132456");
+        this.three = new Player(new Long(3), "three", new EmailType("three@test.de"), "123456");
         playerRepositoryInterface.save(this.john);
         playerRepositoryInterface.save(this.doe);
         playerRepositoryInterface.save(this.three);
@@ -42,7 +66,7 @@ public class PlayerRepositoryTest {
 
     @Test
     public void getAllPlayersTest(){
-        ArrayList<Player> allPlayers = playerRepositoryInterface.getAllPlayers();
+        List<Player> allPlayers = playerRepositoryInterface.getAllPlayers();
         assertEquals("Number of Players", 3, allPlayers.size());
         assertEquals("Existence of Player john", true, allPlayers.contains(this.john));
         assertEquals("Existence of Player doe", true, allPlayers.contains(this.doe));
