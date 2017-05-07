@@ -1,16 +1,22 @@
 package com.emptyshit.hsay.playerComponent;
-import com.emptyshit.hsay.dataTypes.EmailType;
 
+import java.util.List;
 
 /**
- * Created by tungu on 18/04/2017.
+ * Created by tungu on 04/05/2017.
  */
 
 public interface PlayerRepositoryInterface {
 
-    public Player findPlayerById(int id);
+    List<Player> getAllPlayers();
 
-    public Player findPlayerByUserName(String username);
+    Player save(Player player);
 
-    public Player findPlayerByEmailType(EmailType email);
+    Player delete(long id);
+
+    Player findPlayerById(long id);
+
+    Player findPlayerByName(String username);
+
+    Player findPlayerByEmail(String email);
 }

@@ -27,6 +27,22 @@ public class EmailType {
     }
 
     @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+
+        EmailType emailType = (EmailType) o;
+
+        return email != null ? email.equals(emailType.email) : emailType.email == null;
+
+    }
+
+    @Override
+    public int hashCode() {
+        return email != null ? email.hashCode() : 0;
+    }
+
+    @Override
     public String toString(){
         return new String(this.email);
     }
