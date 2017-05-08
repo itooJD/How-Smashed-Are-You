@@ -23,7 +23,7 @@ public class Player {
 
     private String password;
 
-    public Player(int id){
+    public Player(Long id){
         this.playerID = id;
     }
 
@@ -39,6 +39,10 @@ public class Player {
         this.playerName = playerName;
         this.email = email;
         this.password = password;
+    }
+
+    @Generated(hash = 30709322)
+    public Player() {
     }
 
     void setPlayerID(Long playerID) {

@@ -21,7 +21,7 @@ import org.greenrobot.greendao.database.Database;
 
     private DaoSession daoSession;
 
-    private PlayerComponentInterface playerComponentInterface;
+    private static PlayerComponentInterface playerComponentInterface;
     private PlayerRepositoryInterface playerRepositoryInterface;
 
 
@@ -36,7 +36,7 @@ import org.greenrobot.greendao.database.Database;
         playerComponentInterface = new PlayerComponent(playerRepositoryInterface);
     }
 
-    public PlayerComponentInterface getPlayerComponentInterface(){
-        return this.playerComponentInterface;
+    public static PlayerComponentInterface getPlayerComponentInterface(){
+        return playerComponentInterface;
     }
 }

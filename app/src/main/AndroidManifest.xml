@@ -14,9 +14,16 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".playerComponent.WindowLogIn" />
-        <activity android:name=".playerComponent.WindowRegister" />
-        <activity android:name=".Delete"></activity>
+        <activity android:name=".frontsPlayer.WindowStart">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
+        <activity android:name=".frontsPlayer.WindowLogIn" />
+        <activity android:name=".frontsPlayer.WindowRegister" />
+        <activity android:name=".frontsPlayer.WindowPlayerProfile"/>
     </application>
 
 </manifest>
