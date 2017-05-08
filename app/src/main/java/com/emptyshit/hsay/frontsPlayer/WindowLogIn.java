@@ -1,4 +1,4 @@
-package com.emptyshit.hsay.playerComponent;
+package com.emptyshit.hsay.frontsPlayer;
 
 import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;

@@ -1,5 +1,6 @@
-package com.emptyshit.hsay.playerComponent;
+package com.emptyshit.hsay.frontsPlayer;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
@@ -9,18 +10,23 @@ import android.widget.TextView;
 
 import com.emptyshit.hsay.R;
 
+import com.emptyshit.hsay.application.App;
+import com.emptyshit.hsay.playerComponent.PlayerComponentInterface;
+
 public class WindowRegister extends AppCompatActivity {
 
     private TextView registerUsernameTextView, registerEmailTextView, registerPasswordTextView, registerConfirmPasswordTextView;
     private EditText registerUsernameEditText, registerEmailEditText, registerPasswordEditText, registerConfirmPasswordEditText;
     private Button registerConfirmButton;
 
+    private PlayerComponentInterface playerComponentInterface;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_window_register);
         registerUsernameTextView = (TextView) findViewById(R.id.registerUsernameTextView);
-        registerEmailTextView = (TextView) findViewById(R.id.registerEMailTextView);
+        registerEmailTextView = (TextView) findViewById(R.id.registerEmailTextView);
         registerPasswordTextView = (TextView) findViewById(R.id.registerPasswordTextView);
         registerConfirmPasswordTextView = (TextView) findViewById(R.id.registerConfirmPasswordTextView);
         registerUsernameEditText = (EditText) findViewById(R.id.registerUsernameEditText);
@@ -28,45 +34,68 @@ public class WindowRegister extends AppCompatActivity {
         registerPasswordEditText = (EditText) findViewById(R.id.registerConfirmPasswordEditText);
         registerConfirmPasswordEditText = (EditText) findViewById(R.id.registerConfirmPasswordEditText);
         registerConfirmButton = (Button) findViewById(R.id.registerConfirmButton);
+        playerComponentInterface = App.getPlayerComponentInterface();
+        setupClickListener();
     }
 
-    private void setupClickListener(){
-        this.registerConfirmButton.setOnClickListener(new View.OnClickListener(){
+    private void setupClickListener() {
+        this.registerConfirmButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                // register method from playerComponent
+                String username = registerUsernameEditText.getText().toString(); // TODO get oben edit/text view einbinden.
+                String email = registerEmailEditText.getText().toString();
+                String password = registerPasswordEditText.getText().toString();
+                String confirmPassword = registerConfirmPasswordEditText.getText().toString();
+
+                playerComponentInterface.register(username, email, password, confirmPassword);
+
+                Intent intent = new Intent(getApplicationContext(), WindowPlayerProfile.class);
+                startActivity(intent);
             }
         });
     }
 
-    private void setupFocusChangeListener() {
+    /*private void setupFocusChangeListener() {
         this.registerUsernameEditText.setOnFocusChangeListener(new View.OnFocusChangeListener() {
             @Override
             public void onFocusChange(View v, boolean hasFocus) {
-                // checkUsername Method
+                playerComponentInterface.checkUsername().getText().toString();
+                ok.setOnClickListener(okListener);
+                //playerComponentInterface.Integer.parseInt(checkUsername().getText().toString());// checkUsername Method
             }
         });
 
         this.registerEmailEditText.setOnFocusChangeListener(new View.OnFocusChangeListener() {
             @Override
             public void onFocusChange(View v, boolean hasFocus) {
-                // checkEmail Method
+                playerComponentInterface.checkEmail().getText().toString();// checkEmail Method
             }
         });
 
         this.registerPasswordEditText.setOnFocusChangeListener(new View.OnFocusChangeListener() {
             @Override
             public void onFocusChange(View v, boolean hasFocus) {
-                // check Password
+                playerComponentInterface.checkPassword().getText().toString();// check Password
             }
         });
 
         this.registerConfirmPasswordEditText.setOnFocusChangeListener(new View.OnFocusChangeListener() {
             @Override
             public void onFocusChange(View v, boolean hasFocus) {
-                // check Password
+                playerComponentInterface.checkConfiPassword().getText().toString();// check Password
             }
         });
-
     }
+
+    private View.OnClickListener okListener = new View.OnClickListener()
+    {
+        public void onClick(View v)
+        {
+            //sendSMS("9960510915",username);
+            Toast.makeText(getBaseContext(),"Alright", Toast.LENGTH_SHORT).show();
+
+        }
+
+    };*/
+
 }

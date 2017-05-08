@@ -1,4 +1,17 @@
 apply plugin: 'com.android.application'
+apply plugin: 'org.greenrobot.greendao' // apply plugin
+
+buildscript {
+    repositories {
+        jcenter()
+        mavenCentral() // add repository
+    }
+    dependencies {
+        classpath 'com.android.tools.build:gradle:2.3.1'
+        classpath 'org.greenrobot:greendao-gradle-plugin:3.2.2' // add plugin
+    }
+}
+
 
 android {
     compileSdkVersion 25
@@ -19,30 +32,18 @@ android {
     }
 }
 
-buildscript {
-    repositories {
-        mavenCentral() // add repository
-    }
-    dependencies {
-        // greenDAO
-        classpath 'org.greenrobot:greendao-gradle-plugin:3.2.2' // add plugin
-    }
-}
-
-// greenDAO
-apply plugin: 'org.greenrobot.greendao' // apply plugin
-
 dependencies {
     compile fileTree(dir: 'libs', include: ['*.jar'])
     androidTestCompile('com.android.support.test.espresso:espresso-core:2.2.2', {
         exclude group: 'com.android.support', module: 'support-annotations'
     })
-
-    // greenDAO
-    // add library
+    
     compile 'com.android.support:appcompat-v7:25.3.1'
     compile 'com.android.support.constraint:constraint-layout:1.0.2'
     compile 'com.android.support:design:25.3.1'
     compile 'org.greenrobot:greendao:3.2.2'
+
     testCompile 'junit:junit:4.12'
+    testCompile 'org.robolectric:robolectric:3.3.2'
+    compile 'com.android.support.constraint:constraint-layout:1.0.2'
 }
