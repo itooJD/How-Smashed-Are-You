@@ -13,7 +13,8 @@ import org.greenrobot.greendao.annotation.*;
 public class Player {
 
     @Id
-    private long playerID;
+    @Generated
+    private Long playerID;
 
     private String playerName;
 
@@ -32,74 +33,71 @@ public class Player {
         this.playerName = playerName;
     }
 
-  @Generated(hash = 822864597)
-    public Player(long playerID, String playerName, EmailType email, String password) {
+    @Generated(hash = 745898692)
+    public Player(Long playerID, String playerName, EmailType email, String password) {
         this.playerID = playerID;
         this.playerName = playerName;
         this.email = email;
         this.password = password;
     }
 
-    @Generated(hash = 30709322)
-    public Player() {
-    }
-
-    public void setPlayerID(long playerID) {
+    void setPlayerID(Long playerID) {
         this.playerID = playerID;
     }
 
-    public String setPlayerName(String playername){
+    String setPlayerName(String playername){
         this.playerName = playername;
         return this.playerName;
     }
 
-    public EmailType setEmail(EmailType email){
+    EmailType setEmail(EmailType email){
         this.email = email;
         return this.email;
     }
 
-    public String setPassword(String password){
+    String setPassword(String password){
         this.password = password;
         return this.password;
     }
 
-    public long getPlayerID() {
+    Long getPlayerID() {
         return this.playerID;
     }
 
-    public String getPlayerName(){
+    String getPlayerName(){
         return this.playerName;
     }
 
-    public EmailType getEmail(){
+    EmailType getEmail(){
         return this.email;
     }
 
-    public String getPassword(){
+    String getPassword(){
         return this.password;
     }
 
-    @Override
+    boolean comparePassword(String password){
+        return this.password.equals(password);
+    }
+
+   // @Override
     public boolean equals(Object o) {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
 
         Player player = (Player) o;
 
-        if (playerID != player.playerID) return false;
-        if (playerName != null ? !playerName.equals(player.playerName) : player.playerName != null)
-            return false;
-        if (email != null ? !email.equals(player.email) : player.email != null) return false;
-        return password != null ? password.equals(player.password) : player.password == null;
+        if (!playerName.equals(player.playerName)) return false;
+        if (!email.equals(player.email)) return false;
+        return password.equals(player.password);
 
     }
 
-    @Override
+    //@Override
     public int hashCode() {
-        int result = (int) (playerID ^ (playerID >>> 32));
-        result = 31 * result + (playerName != null ? playerName.hashCode() : 0);
-        result = 31 * result + (email != null ? email.hashCode() : 0);
-        result = 31 * result + (password != null ? password.hashCode() : 0);
+        int result = playerName.hashCode();
+        result = 31 * result + email.hashCode();
+        result = 31 * result + password.hashCode();
         return result;
     }
 }
