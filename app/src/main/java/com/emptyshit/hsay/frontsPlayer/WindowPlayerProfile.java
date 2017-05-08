@@ -5,6 +5,7 @@ import android.os.Bundle;
 import android.widget.TextView;
 
 import com.emptyshit.hsay.R;
+import com.emptyshit.hsay.application.App;
 import com.emptyshit.hsay.playerComponent.PlayerComponentInterface;
 
 public class WindowPlayerProfile extends AppCompatActivity {
@@ -16,9 +17,9 @@ public class WindowPlayerProfile extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_window_player_profile);
+        playerComponentInterface = App.getPlayerComponentInterface();
 
         playerProfileEmailTextView = (TextView) findViewById(R.id.playerProfileEmailTextView);
-
         playerProfileEmailTextView.setText(playerComponentInterface.getEmail().toString());
     }
 }

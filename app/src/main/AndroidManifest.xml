@@ -8,6 +8,7 @@
     <uses-permission android:name="android.permission.READ_CONTACTS" />
 
     <application
+        android:name=".application.App"
         android:allowBackup="true"
         android:icon="@mipmap/ic_launcher"
         android:label="@string/app_name"
@@ -17,13 +18,12 @@
         <activity android:name=".frontsPlayer.WindowStart">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
-
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".frontsPlayer.WindowLogIn" />
-        <activity android:name=".frontsPlayer.WindowRegister" />
-        <activity android:name=".frontsPlayer.WindowPlayerProfile"/>
+        <activity android:name=".frontsPlayer.WindowLogIn" ></activity>
+        <activity android:name=".frontsPlayer.WindowRegister" ></activity>
+        <activity android:name=".frontsPlayer.WindowPlayerProfile" ></activity>
     </application>
 
 </manifest>

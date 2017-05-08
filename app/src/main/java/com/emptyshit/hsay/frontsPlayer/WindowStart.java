@@ -8,6 +8,7 @@ import android.content.Intent;
 import android.widget.Button;
 
 import com.emptyshit.hsay.R;
+import com.emptyshit.hsay.application.App;
 
 public class WindowStart extends AppCompatActivity {
 

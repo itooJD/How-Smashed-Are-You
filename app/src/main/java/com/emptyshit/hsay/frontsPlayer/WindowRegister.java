@@ -47,10 +47,10 @@ public class WindowRegister extends AppCompatActivity {
                 String password = registerPasswordEditText.getText().toString();
                 String confirmPassword = registerConfirmPasswordEditText.getText().toString();
 
-                playerComponentInterface.register(username, email, password, confirmPassword);
-
-                Intent intent = new Intent(getApplicationContext(), WindowPlayerProfile.class);
-                startActivity(intent);
+                if(playerComponentInterface != null && playerComponentInterface.register(username, email, password, confirmPassword) == true) {
+                    Intent intent = new Intent(WindowRegister.this, WindowPlayerProfile.class);
+                    startActivity(intent);
+                }
             }
         });
     }

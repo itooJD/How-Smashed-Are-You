@@ -1,6 +1,7 @@
 package com.emptyshit.hsay.application;
 
 import android.app.Application;
+import android.content.Context;
 import android.database.sqlite.SQLiteDatabase;
 
 import com.emptyshit.hsay.playerComponent.DaoMaster;
@@ -15,23 +16,20 @@ import org.greenrobot.greendao.database.Database;
 /**
  * Created by tungu on 04/05/2017.
  */
- public class App extends Application{
+public class App extends Application{
 
-    public static final boolean ENCRYPTED = true;
+    private static DaoSession daoSession = null;
 
-    private DaoSession daoSession;
-
-    private static PlayerComponentInterface playerComponentInterface;
-    private PlayerRepositoryInterface playerRepositoryInterface;
-
+    private static PlayerComponentInterface playerComponentInterface = null;
+    private static PlayerRepositoryInterface playerRepositoryInterface = null;
 
     @Override
     public void onCreate(){
         super.onCreate();
-
-        DaoMaster.DevOpenHelper helper = new DaoMaster.DevOpenHelper(this, ENCRYPTED ? "db-encrypted" : "db");
-        Database db = ENCRYPTED ? helper.getEncryptedWritableDb("super-secret") : helper.getWritableDb();
+        DaoMaster.DevOpenHelper helper = new DaoMaster.DevOpenHelper(this, "db");
+        SQLiteDatabase db = helper.getWritableDatabase();
         daoSession = new DaoMaster(db).newSession();
+
         playerRepositoryInterface = new PlayerRepository(daoSession);
         playerComponentInterface = new PlayerComponent(playerRepositoryInterface);
     }

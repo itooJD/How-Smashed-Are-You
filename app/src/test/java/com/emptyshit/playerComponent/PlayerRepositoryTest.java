@@ -30,7 +30,6 @@ import java.util.List;
 @RunWith(RobolectricTestRunner.class)
 public class PlayerRepositoryTest {
 
-    private App application = new App();
     private PlayerRepositoryInterface playerRepositoryInterface;
 
     private Player john;
