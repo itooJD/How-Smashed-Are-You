@@ -24,6 +24,7 @@ public class Player {
     private String password;
 
     public Player(int id){
+    public Player(Long id){
         this.playerID = id;
     }
 
