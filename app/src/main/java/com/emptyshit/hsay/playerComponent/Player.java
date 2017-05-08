@@ -42,6 +42,10 @@ public class Player {
         this.password = password;
     }
 
+    @Generated(hash = 30709322)
+    public Player() {
+    }
+
     void setPlayerID(Long playerID) {
         this.playerID = playerID;
     }
