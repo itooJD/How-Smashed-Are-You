@@ -15,4 +15,6 @@ Kanban Board: https://tree.taiga.io/project/abf890-how-smashed-are-you
 
 Story Board: https://realtimeboard.com
 
-Communication: Whatsapp, Skype, Google Docs
+Gooogle Drive: https://drive.google.com/drive/my-drive
+
+Communication: Whatsapp, Skype
