@@ -10,6 +10,9 @@ import com.emptyshit.hsay.playerComponent.PlayerComponent;
 import com.emptyshit.hsay.playerComponent.PlayerComponentInterface;
 import com.emptyshit.hsay.playerComponent.PlayerRepository;
 import com.emptyshit.hsay.playerComponent.PlayerRepositoryInterface;
+import com.emptyshit.hsay.timeMeasureComponent.TimeDataRepository;
+import com.emptyshit.hsay.timeMeasureComponent.TimeMeasureComponent;
+import com.emptyshit.hsay.timeMeasureComponent.TimeMeasureComponentInterface;
 
 import org.greenrobot.greendao.database.Database;
 
@@ -22,6 +25,8 @@ public class App extends Application{
 
     private static PlayerComponentInterface playerComponentInterface = null;
     private static PlayerRepositoryInterface playerRepositoryInterface = null;
+    private static TimeMeasureComponentInterface timeMeasureComponentInterface = null;
+    private static TimeDataRepository timeDataRepository = null;
 
     @Override
     public void onCreate(){
@@ -32,9 +37,15 @@ public class App extends Application{
 
         playerRepositoryInterface = new PlayerRepository(daoSession);
         playerComponentInterface = new PlayerComponent(playerRepositoryInterface);
+        timeDataRepository = new TimeDataRepository(daoSession);
+        timeMeasureComponentInterface = new TimeMeasureComponent(playerComponentInterface, timeDataRepository);
     }
 
     public static PlayerComponentInterface getPlayerComponentInterface(){
         return playerComponentInterface;
+    }
+
+    public static TimeMeasureComponentInterface getTimeMeasureComponentInterface(){
+        return timeMeasureComponentInterface;
     }
 }

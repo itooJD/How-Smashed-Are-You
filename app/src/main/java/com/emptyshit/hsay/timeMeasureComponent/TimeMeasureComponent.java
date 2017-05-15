@@ -9,18 +9,31 @@ import com.emptyshit.hsay.playerComponent.PlayerComponentInterface;
 
 public class TimeMeasureComponent implements TimeMeasureComponentInterface {
 
+    private TimeDataRepository timeDataRepository;
     private PlayerComponentInterface playerComponentInterface;
 
-    public TimeMeasureComponent(){
-
+    public TimeMeasureComponent(PlayerComponentInterface playerComponentInterface, TimeDataRepository timeDataRepository){
+        this.playerComponentInterface = playerComponentInterface;
+        this.timeDataRepository = timeDataRepository;
     }
 
-    public TimeMeasureComponent(PlayerComponentInterface playerComponentInterface){
-        this.playerComponentInterface = playerComponentInterface;
+    @Override
+    public int startChronograph() {
+        return 0;
+    }
+
+    @Override
+    public int endChronograph() {
+        return 0;
     }
 
     @Override
     public TimeType getCurrentTime() {
+        return null;
+    }
+
+    @Override
+    public TimeType getStoppedTime() {
         return null;
     }
 
@@ -35,12 +48,12 @@ public class TimeMeasureComponent implements TimeMeasureComponentInterface {
     }
 
     @Override
-    public TimeType[] getAllTimeOfGame(int gameID, int playerID) {
+    public TimeType[] getAllTimeOfGame(int gameID, int spielerID) {
         return new TimeType[0];
     }
 
     @Override
-    public TimeData[] getBestOfGame(int gameID) {
-        return new TimeData[0];
+    public TimeType[] getBestOfGame(int gameID) {
+        return new TimeType[0];
     }
 }

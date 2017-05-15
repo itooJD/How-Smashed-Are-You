@@ -8,40 +8,20 @@ import com.emptyshit.hsay.dataTypes.*;
 
 public interface TimeMeasureComponentInterface {
 
-    /**
-     *
-     * @return
-     */
-    public TimeType getCurrentTime();
+    int startChronograph();
 
-    /**
-     *
-     * @param gameID
-     * @param playerID
-     * @return
-     */
-    public TimeType getMyBestTimeOfGame(int gameID, int playerID);
+    int endChronograph();
 
-    /**
-     *
-     * @param gameID
-     * @param playerID
-     * @return
-     */
-    public TimeType getMyAvgTimeOfGame(int gameID, int playerID);
+    TimeType getCurrentTime();
 
-    /**
-     *
-     * @param gameID
-     * @param playerID
-     * @return
-     */
-    public TimeType[] getAllTimeOfGame(int gameID, int playerID);
+    TimeType getStoppedTime();
 
-    /**
-     *
-     * @param gameID
-     * @return
-     */
-    public TimeData[] getBestOfGame(int gameID);
+    TimeType getMyBestTimeOfGame(int gameID, int playerID);
+
+    TimeType getMyAvgTimeOfGame(int gameID, int playerID);
+
+    TimeType[] getAllTimeOfGame(int gameID, int spielerID);
+
+    TimeType[] getBestOfGame(int gameID);
+
 }
