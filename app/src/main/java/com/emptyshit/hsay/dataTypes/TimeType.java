@@ -5,9 +5,9 @@ package com.emptyshit.hsay.dataTypes;
  */
 public class TimeType {
 
-    private float milliseconds;
+    private double milliseconds;
 
-    public TimeType(float milliseconds){
+    public TimeType(double milliseconds){
         this.milliseconds = milliseconds;
     }
 
@@ -47,7 +47,7 @@ public class TimeType {
        return  new TimeType(this.milliseconds/ number);
     }
 
-    public float getMilliseconds() {
+    public double getMilliseconds() {
         return this.milliseconds;
     }
 

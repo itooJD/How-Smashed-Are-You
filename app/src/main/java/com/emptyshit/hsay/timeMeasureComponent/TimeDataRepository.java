@@ -1,38 +1,40 @@
 package com.emptyshit.hsay.timeMeasureComponent;
 
-import android.database.sqlite.*;
-
 import com.emptyshit.hsay.playerComponent.DaoSession;
 
 import org.greenrobot.greendao.query.QueryBuilder;
 
-/**
- * Created by huynh_phuong_nguyen on 13.04.17.
- */
+import java.util.List;
 
 public class TimeDataRepository {
 
     private TimeDataDao timeDataDao;
     private QueryBuilder<TimeData> queryBuilder;
 
-    public TimeDataRepository (DaoSession daoSession){
+    public TimeDataRepository(DaoSession daoSession){
         this.timeDataDao = daoSession.getTimeDataDao();
     }
 
-    public TimeData getTimeDataByPlayerID(int playerID){
-        return null;
-        // if get = fail
-        // then createTimeData()
+    TimeData getTimeData(long playerId, long gameId){
+        this.queryBuilder = this.timeDataDao.queryBuilder().where(TimeDataDao.Properties.PlayerID.eq(playerId), TimeDataDao.Properties.GameID.eq(gameId));
+        List<TimeData> timeDataList = this.queryBuilder.list();
+        if(timeDataList.size() == 1){
+            return timeDataList.get(0);
+        }
+        return createTimeData(playerId, gameId);
     }
 
-    public TimeData getTimeDataByGameID(int gameID){
-        return null;
-        // if get = fail
-        // then createTimeData()
+    TimeData createTimeData(long playerId, long gameId){
+        TimeData timeData = new TimeData();
+        timeData.setPlayerID(playerId);
+        timeData.setGameID(gameId);
+        return timeData;
     }
 
-    private TimeData createTimeData(int playerID){
-        return null;
 
+    TimeData saveTimeData(TimeData timeData){
+        timeDataDao.save(timeData);
+        //TODO
+        return timeData;
     }
 }

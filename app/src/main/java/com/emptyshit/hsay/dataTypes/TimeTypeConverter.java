@@ -5,7 +5,7 @@ import org.greenrobot.greendao.converter.PropertyConverter;
 /**
  * Time Type Converter
  */
-public class TimeTypeConverter implements PropertyConverter<TimeType,Float> {
+public class TimeTypeConverter implements PropertyConverter<TimeType,Double> {
 
     /**
      * Converts the Database-Value to TimeType
@@ -13,7 +13,7 @@ public class TimeTypeConverter implements PropertyConverter<TimeType,Float> {
      * @return
      */
     @Override
-    public TimeType convertToEntityProperty(Float databaseValue) {
+    public TimeType convertToEntityProperty(Double databaseValue) {
         return new TimeType(databaseValue);
     }
 
@@ -23,7 +23,7 @@ public class TimeTypeConverter implements PropertyConverter<TimeType,Float> {
      * @return
      */
     @Override
-    public Float convertToDatabaseValue(TimeType entityProperty) {
+    public Double convertToDatabaseValue(TimeType entityProperty) {
         return entityProperty.getMilliseconds();
     }
 }

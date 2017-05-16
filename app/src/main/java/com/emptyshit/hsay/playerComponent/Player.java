@@ -84,7 +84,7 @@ public class Player {
         return this.password.equals(password);
     }
 
-   // @Override
+    @Override
     public boolean equals(Object o) {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
@@ -97,7 +97,7 @@ public class Player {
 
     }
 
-    //@Override
+    @Override
     public int hashCode() {
         int result = playerName.hashCode();
         result = 31 * result + email.hashCode();

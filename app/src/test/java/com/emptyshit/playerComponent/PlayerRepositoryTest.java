@@ -2,14 +2,13 @@ package com.emptyshit.playerComponent;
 
 import android.content.Context;
 
-import com.emptyshit.hsay.BuildConfig;
-import com.emptyshit.hsay.application.App;
 import com.emptyshit.hsay.dataTypes.EmailType;
 import com.emptyshit.hsay.playerComponent.DaoMaster;
 import com.emptyshit.hsay.playerComponent.DaoSession;
 import com.emptyshit.hsay.playerComponent.Player;
+import com.emptyshit.hsay.playerComponent.PlayerComponent;
+import com.emptyshit.hsay.playerComponent.PlayerComponentInterface;
 import com.emptyshit.hsay.playerComponent.PlayerRepository;
-import com.emptyshit.hsay.playerComponent.PlayerRepositoryInterface;
 
 import org.greenrobot.greendao.database.Database;
 import org.junit.After;
@@ -30,14 +29,14 @@ import java.util.List;
 @RunWith(RobolectricTestRunner.class)
 public class PlayerRepositoryTest {
 
-    private PlayerRepositoryInterface playerRepositoryInterface;
+    private Context context;
+    private DaoSession daoSession;
+    private PlayerRepository playerRepository;
+    private PlayerComponentInterface playerComponentInterface;
 
     private Player john;
     private Player doe;
     private Player three;
-
-    private Context context;
-    private DaoSession daoSession;
 
     @Before
     public void construct(){
@@ -46,50 +45,57 @@ public class PlayerRepositoryTest {
         DaoMaster.DevOpenHelper helper = new DaoMaster.DevOpenHelper(this.context, "db");
         Database db = helper.getWritableDb();
         daoSession = new DaoMaster(db).newSession();
-        playerRepositoryInterface = new PlayerRepository(daoSession);
+        playerRepository = new PlayerRepository(daoSession);
+        playerComponentInterface = new PlayerComponent(this.playerRepository);
 
-        this.john = new Player(new Long(1), "john", new EmailType("john@test.de"), "123465");
-        this.doe = new Player(new Long(2), "doe", new EmailType("doe@test.de"), "132456");
+        this.john = new Player(new Long(1), "john", new EmailType("john@test.de"), "123456");
+        this.doe = new Player(new Long(2), "doe", new EmailType("doe@test.de"), "123456");
         this.three = new Player(new Long(3), "three", new EmailType("three@test.de"), "123456");
-        playerRepositoryInterface.save(this.john);
-        playerRepositoryInterface.save(this.doe);
-        playerRepositoryInterface.save(this.three);
+        playerComponentInterface.register("john","john@test.de","123456","123456");
+        playerComponentInterface.register("doe","doe@test.de","123456","123456");
+        playerComponentInterface.register("three","three@test.de","123456","123456");
     }
 
     @After
     public void destruct(){
-        playerRepositoryInterface.delete(1);
-        playerRepositoryInterface.delete(2);
-        playerRepositoryInterface.delete(3);
+        playerComponentInterface.login("john", "123456");
+        playerComponentInterface.delete();
+        playerComponentInterface.login("doe", "123456");
+        playerComponentInterface.delete();
+        playerComponentInterface.login("three", "123456");
+        playerComponentInterface.delete();
     }
 
     @Test
     public void getAllPlayersTest(){
-        List<Player> allPlayers = playerRepositoryInterface.getAllPlayers();
+        List<Player> allPlayers = playerComponentInterface.getAllPlayers();
         assertEquals("Number of Players", 3, allPlayers.size());
+        for(Player player : allPlayers){
+            System.out.println(player);
+        }
         assertEquals("Existence of Player john", true, allPlayers.contains(this.john));
         assertEquals("Existence of Player doe", true, allPlayers.contains(this.doe));
         assertEquals("Existence of Player three", true, allPlayers.contains(this.three));
     }
 
     @Test
-    public void findPlayerByIdTest(){
-        assertEquals("", this.john, this.playerRepositoryInterface.findPlayerById(1));
-        assertEquals("", this.doe, this.playerRepositoryInterface.findPlayerById(2));
-        assertEquals("", this.three, this.playerRepositoryInterface.findPlayerById(3));
+    public void getPlayerByIdTest(){
+        assertEquals("", this.john, this.playerComponentInterface.getPlayerById(1));
+        assertEquals("", this.doe, this.playerComponentInterface.getPlayerById(2));
+        assertEquals("", this.three, this.playerComponentInterface.getPlayerById(3));
     }
 
     @Test
     public void findPlayerByNameTest(){
-        assertEquals("", this.john, this.playerRepositoryInterface.findPlayerByName("john"));
-        assertEquals("", this.doe, this.playerRepositoryInterface.findPlayerByName("doe"));
-        assertEquals("", this.three, this.playerRepositoryInterface.findPlayerByName("three"));
+        assertEquals("", this.john, this.playerComponentInterface.getPlayerByName("john"));
+        assertEquals("", this.doe, this.playerComponentInterface.getPlayerByName("doe"));
+        assertEquals("", this.three, this.playerComponentInterface.getPlayerByName("three"));
     }
 
     @Test
     public void findPlayerByEmailTypeTest(){
-        assertEquals("", this.john, this.playerRepositoryInterface.findPlayerByEmail("john@test.de"));
-        assertEquals("", this.doe, this.playerRepositoryInterface.findPlayerByEmail("doe@test.de"));
-        assertEquals("", this.three, this.playerRepositoryInterface.findPlayerByEmail("three@test.de"));
+        assertEquals("", this.john, this.playerComponentInterface.getPlayerByEmail("john@test.de"));
+        assertEquals("", this.doe, this.playerComponentInterface.getPlayerByEmail("doe@test.de"));
+        assertEquals("", this.three, this.playerComponentInterface.getPlayerByEmail("three@test.de"));
     }
 }

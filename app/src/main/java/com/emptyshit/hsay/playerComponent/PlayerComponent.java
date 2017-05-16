@@ -2,15 +2,17 @@ package com.emptyshit.hsay.playerComponent;
 
 import com.emptyshit.hsay.dataTypes.EmailType;
 
+import java.util.List;
+
 public class PlayerComponent implements PlayerComponentInterface {
 
-	private PlayerRepositoryInterface playerRepositoryInterface;
+	private PlayerRepository playerRepository;
 
 	//TODO
 	private Player player;
 
-	public PlayerComponent(PlayerRepositoryInterface playerRepositoryInterface){
-		this.playerRepositoryInterface = playerRepositoryInterface;
+	public PlayerComponent(PlayerRepository playerRepository){
+		this.playerRepository = playerRepository;
 	}
 
 	@Override
@@ -26,7 +28,7 @@ public class PlayerComponent implements PlayerComponentInterface {
 			player.setEmail(email);
 			player.setPassword(password);
 			saveLocalPlayer(player);
-			playerRepositoryInterface.save(player);
+			playerRepository.save(player);
 			return true;
 		} else {
 			return false;
@@ -45,7 +47,7 @@ public class PlayerComponent implements PlayerComponentInterface {
 
 	@Override
 	public boolean login(String playername, String password) {
-		Player player = playerRepositoryInterface.findPlayerByName(playername);
+		Player player = playerRepository.findPlayerByName(playername);
 		if(player != null && player.comparePassword(password)){
 			saveLocalPlayer(player);
 			return true;
@@ -57,10 +59,30 @@ public class PlayerComponent implements PlayerComponentInterface {
 	public boolean delete() {
 		Player player = getLocalPlayer();
 		if(player != null){
-			playerRepositoryInterface.delete(player.getPlayerID());
+			playerRepository.delete(player.getPlayerID());
 			return true;
 		}
 		return false;
+	}
+
+	@Override
+	public Player getPlayerById(long id) {
+		return playerRepository.findPlayerById(id);
+	}
+
+	@Override
+	public Player getPlayerByName(String name) {
+		return playerRepository.findPlayerByName(name);
+	}
+
+	@Override
+	public Player getPlayerByEmail(String email) {
+		return playerRepository.findPlayerByEmail(email);
+	}
+
+	@Override
+	public List<Player> getAllPlayers() {
+		return playerRepository.getAllPlayers();
 	}
 
 	@Override

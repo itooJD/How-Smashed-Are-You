@@ -16,12 +16,11 @@ public interface TimeMeasureComponentInterface {
 
     TimeType getStoppedTime();
 
-    TimeType getMyBestTimeOfGame(int gameID, int playerID);
+    TimeType getMyBestTimeOfGame(int gameID);
 
-    TimeType getMyAvgTimeOfGame(int gameID, int playerID);
+    TimeType getMyAvgTimeOfGame(int gameID);
 
     TimeType[] getAllTimeOfGame(int gameID, int spielerID);
 
     TimeType[] getBestOfGame(int gameID);
-
 }

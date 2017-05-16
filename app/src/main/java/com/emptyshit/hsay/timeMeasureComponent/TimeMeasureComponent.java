@@ -9,8 +9,13 @@ import com.emptyshit.hsay.playerComponent.PlayerComponentInterface;
 
 public class TimeMeasureComponent implements TimeMeasureComponentInterface {
 
-    private TimeDataRepository timeDataRepository;
-    private PlayerComponentInterface playerComponentInterface;
+    private TimeData myTime = null;
+    private int statusOfChronograph = 0;
+    private TimeType startTime;
+    private TimeType stoppedTime;
+
+    private TimeDataRepository timeDataRepository = null;
+    private PlayerComponentInterface playerComponentInterface = null;
 
     public TimeMeasureComponent(PlayerComponentInterface playerComponentInterface, TimeDataRepository timeDataRepository){
         this.playerComponentInterface = playerComponentInterface;
@@ -19,32 +24,36 @@ public class TimeMeasureComponent implements TimeMeasureComponentInterface {
 
     @Override
     public int startChronograph() {
-        return 0;
+        this.startTime = new TimeType(System.currentTimeMillis());
+        this.statusOfChronograph = 1;
+        return this.statusOfChronograph;
     }
 
     @Override
     public int endChronograph() {
-        return 0;
+        this.stoppedTime = 	new TimeType(System.currentTimeMillis() - this.startTime.getMilliseconds());
+        this.statusOfChronograph = 0;
+        return this.statusOfChronograph;
     }
 
     @Override
     public TimeType getCurrentTime() {
-        return null;
+        return new TimeType(System.currentTimeMillis() - this.startTime.getMilliseconds());
     }
 
     @Override
     public TimeType getStoppedTime() {
-        return null;
+        return this.stoppedTime;
     }
 
     @Override
-    public TimeType getMyBestTimeOfGame(int gameID, int playerID) {
-        return null;
+    public TimeType getMyBestTimeOfGame(int gameID) {
+        return this.myTime.getBestTimeType();
     }
 
     @Override
-    public TimeType getMyAvgTimeOfGame(int gameID, int playerID) {
-        return null;
+    public TimeType getMyAvgTimeOfGame(int gameID) {
+        return this.myTime.getAvgTimeType();
     }
 
     @Override

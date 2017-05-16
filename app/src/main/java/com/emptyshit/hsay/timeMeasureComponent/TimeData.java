@@ -19,16 +19,17 @@ import java.util.ArrayList;
 @Entity
 public class TimeData {
 
-    // fehlt eine Relation zu Player
     @Id
-    private int playerID;
+    private long id;
 
-    private int gameID;
+    private long playerID;
 
-    @Convert(converter = TimeTypeConverter.class, columnType = Float.class)
+    private long gameID;
+
+    @Convert(converter = TimeTypeConverter.class, columnType = Double.class)
     private TimeType bestTimeType = null;
 
-    @Convert(converter = TimeTypeConverter.class, columnType = Float.class)
+    @Convert(converter = TimeTypeConverter.class, columnType = Double.class)
     private TimeType avgTimeType = null;
 
     // TimeType eine eigene Entität?
@@ -37,13 +38,14 @@ public class TimeData {
 
     private int timesPlayed = 0;
 
-
     @Generated(hash = 61090496)
     public TimeData() {
     }
 
-    @Generated(hash = 1642838466)
-    public TimeData(int playerID, int gameID, TimeType bestTimeType, TimeType avgTimeType, int timesPlayed) {
+    @Generated(hash = 1348853680)
+    public TimeData(long id, long playerID, long gameID, TimeType bestTimeType, TimeType avgTimeType,
+            int timesPlayed) {
+        this.id = id;
         this.playerID = playerID;
         this.gameID = gameID;
         this.bestTimeType = bestTimeType;
@@ -51,7 +53,7 @@ public class TimeData {
         this.timesPlayed = timesPlayed;
     }
 
-    private int setBestTime(TimeType bestTimeType){
+    int setBestTime(TimeType bestTimeType){
         if(bestTimeType.isSmallerThan(bestTimeType)) {
             this.bestTimeType = bestTimeType;
             return 1;
@@ -59,12 +61,12 @@ public class TimeData {
         return 0;
     }
 
-    private TimeType calculateAvgTime(TimeType newTimeType){
+    TimeType calculateAvgTime(TimeType newTimeType){
         avgTimeType = avgTimeType.multiply(timesPlayed/(timesPlayed+1)).add(newTimeType.divide(timesPlayed+1));
         return avgTimeType;
     }
 
-    public TimeType addNewTime(TimeType newTimeType){
+    TimeType addNewTime(TimeType newTimeType){
         this.timeTypeLine.add(0, newTimeType);
         if(timeTypeLine.size() > 30 ){
             this.timeTypeLine.remove(30);
@@ -75,47 +77,55 @@ public class TimeData {
         return newTimeType;
     }
 
-    public int getPlayerID() {
+    long getPlayerID() {
         return playerID;
     }
 
-    public int getGameID() {
+    long getGameID() {
         return gameID;
     }
 
-    public TimeType getBestTimeType() {
+    TimeType getBestTimeType() {
         return bestTimeType;
     }
 
-    public TimeType getAvgTimeType() {
+    TimeType getAvgTimeType() {
         return avgTimeType;
     }
 
-    public ArrayList<TimeType> getTimeTypeLine() {
+    ArrayList<TimeType> getTimeTypeLine() {
         return timeTypeLine;
     }
 
-    public int getTimesPlayed() {
+    int getTimesPlayed() {
         return timesPlayed;
     }
 
-    public void setPlayerID(int playerID) {
+    void setPlayerID(long playerID) {
         this.playerID = playerID;
     }
 
-    public void setGameID(int gameID) {
+    void setGameID(long gameID) {
         this.gameID = gameID;
     }
 
-    public void setTimesPlayed(int timesPlayed) {
+    void setTimesPlayed(int timesPlayed) {
         this.timesPlayed = timesPlayed;
     }
 
-    public void setBestTimeType(TimeType bestTimeType) {
+    void setBestTimeType(TimeType bestTimeType) {
         this.bestTimeType = bestTimeType;
     }
 
-    public void setAvgTimeType(TimeType avgTimeType) {
+    void setAvgTimeType(TimeType avgTimeType) {
         this.avgTimeType = avgTimeType;
+    }
+
+    public long getId() {
+        return this.id;
+    }
+
+    public void setId(long id) {
+        this.id = id;
     }
 }

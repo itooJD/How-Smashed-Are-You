@@ -10,7 +10,6 @@ import com.emptyshit.hsay.playerComponent.Player;
 import com.emptyshit.hsay.playerComponent.PlayerComponent;
 import com.emptyshit.hsay.playerComponent.PlayerComponentInterface;
 import com.emptyshit.hsay.playerComponent.PlayerRepository;
-import com.emptyshit.hsay.playerComponent.PlayerRepositoryInterface;
 
 import org.greenrobot.greendao.database.Database;
 import org.junit.After;
@@ -20,6 +19,8 @@ import org.junit.runner.RunWith;
 import org.robolectric.RobolectricTestRunner;
 import org.robolectric.RuntimeEnvironment;
 
+import java.util.List;
+
 import static org.junit.Assert.*;
 
 @RunWith(RobolectricTestRunner.class)
@@ -27,7 +28,7 @@ public class PlayerComponentTest {
 
     private Context context;
     private DaoSession daoSession;
-    private PlayerRepositoryInterface playerRepositoryInterface;
+    private PlayerRepository playerRepository;
     private PlayerComponentInterface playerComponentInterface;
 
     private String johnnyName = "johnny";
@@ -40,8 +41,8 @@ public class PlayerComponentTest {
         Database db = helper.getWritableDb();
         daoSession = new DaoMaster(db).newSession();
         
-        playerRepositoryInterface = new PlayerRepository(daoSession);
-        playerComponentInterface = new PlayerComponent(this.playerRepositoryInterface);
+        playerRepository = new PlayerRepository(daoSession);
+        playerComponentInterface = new PlayerComponent(this.playerRepository);
 
         playerComponentInterface.register(this.johnnyName, this.johnnyEmail, this.johnnyPassword, this.johnnyPassword);
     }
@@ -54,9 +55,9 @@ public class PlayerComponentTest {
     @Test
     public void  withoutRegisterTest(){
         playerComponentInterface.delete();
-        assertEquals("playersize = 0", 0, playerRepositoryInterface.getAllPlayers().size());
+        assertEquals("playersize = 0", 0, playerComponentInterface.getAllPlayers().size());
         playerComponentInterface.withoutRegister();
-        assertEquals("playersize = 0", 0, playerRepositoryInterface.getAllPlayers().size());
+        assertEquals("playersize = 0", 0, playerComponentInterface.getAllPlayers().size());
     }
 
     @Test
@@ -67,9 +68,9 @@ public class PlayerComponentTest {
 
     @Test
     public void  registerAndDeleteTest(){
-        assertNotNull("John should be present",playerRepositoryInterface.findPlayerByName(this.johnnyName));
+        assertNotNull("John should be present",playerComponentInterface.getPlayerByName(this.johnnyName));
         playerComponentInterface.delete();
-        assertNull("John should me deleted",playerRepositoryInterface.findPlayerByName(this.johnnyName));
+        assertNull("John should me deleted",playerComponentInterface.getPlayerByName(this.johnnyName));
     }
 
     @Test
