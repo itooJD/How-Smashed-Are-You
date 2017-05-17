@@ -20,7 +20,8 @@ import java.util.ArrayList;
 public class TimeData {
 
     @Id
-    private long id;
+    @Generated
+    private Long timeDataID;
 
     private long playerID;
 
@@ -42,10 +43,10 @@ public class TimeData {
     public TimeData() {
     }
 
-    @Generated(hash = 1348853680)
-    public TimeData(long id, long playerID, long gameID, TimeType bestTimeType, TimeType avgTimeType,
+    @Generated(hash = 1203745979)
+    public TimeData(Long timeDataID, long playerID, long gameID, TimeType bestTimeType, TimeType avgTimeType,
             int timesPlayed) {
-        this.id = id;
+        this.timeDataID = timeDataID;
         this.playerID = playerID;
         this.gameID = gameID;
         this.bestTimeType = bestTimeType;
@@ -53,15 +54,15 @@ public class TimeData {
         this.timesPlayed = timesPlayed;
     }
 
-    int setBestTime(TimeType bestTimeType){
-        if(bestTimeType.isSmallerThan(bestTimeType)) {
+    private int setBestTime(TimeType bestTimeType){
+        if(!this.bestTimeType.isSmallerThan(bestTimeType)) {
             this.bestTimeType = bestTimeType;
             return 1;
         }
         return 0;
     }
 
-    TimeType calculateAvgTime(TimeType newTimeType){
+    private TimeType calculateAvgTime(TimeType newTimeType){
         avgTimeType = avgTimeType.multiply(timesPlayed/(timesPlayed+1)).add(newTimeType.divide(timesPlayed+1));
         return avgTimeType;
     }
@@ -121,11 +122,11 @@ public class TimeData {
         this.avgTimeType = avgTimeType;
     }
 
-    public long getId() {
-        return this.id;
+    public Long getTimeDataID() {
+        return this.timeDataID;
     }
 
-    public void setId(long id) {
-        this.id = id;
+    public void setTimeDataID(Long timeDataID) {
+        this.timeDataID = timeDataID;
     }
 }

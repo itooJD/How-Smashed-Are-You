@@ -86,7 +86,16 @@ public class PlayerComponent implements PlayerComponentInterface {
 	}
 
 	@Override
-	public String getUsername() {
+	public long getMyId(){
+		Player player = getLocalPlayer();
+		if(player != null){
+			return player.getPlayerID();
+		}
+		return 0;
+	}
+
+	@Override
+	public String getMyUsername() {
 		Player player = getLocalPlayer();
 		if(player != null){
 			return player.getPlayerName();
@@ -95,9 +104,12 @@ public class PlayerComponent implements PlayerComponentInterface {
 	}
 
 	@Override
-	public EmailType getEmail() {
+	public EmailType getMyEmail() {
 		Player player = getLocalPlayer();
-		return player.getEmail();
+		if(player != null) {
+			return player.getEmail();
+		}
+		return null;
 	}
 
 	private Player getLocalPlayer() {

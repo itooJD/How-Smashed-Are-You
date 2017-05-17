@@ -23,7 +23,8 @@ public class TimeMeasureComponent implements TimeMeasureComponentInterface {
     }
 
     @Override
-    public int startChronograph() {
+    public int startChronograph(long gameId) {
+        myTime = timeDataRepository.getTimeData(playerComponentInterface.getMyId(), gameId);
         this.startTime = new TimeType(System.currentTimeMillis());
         this.statusOfChronograph = 1;
         return this.statusOfChronograph;
@@ -32,6 +33,7 @@ public class TimeMeasureComponent implements TimeMeasureComponentInterface {
     @Override
     public int endChronograph() {
         this.stoppedTime = 	new TimeType(System.currentTimeMillis() - this.startTime.getMilliseconds());
+        myTime.addNewTime(this.stoppedTime);
         this.statusOfChronograph = 0;
         return this.statusOfChronograph;
     }

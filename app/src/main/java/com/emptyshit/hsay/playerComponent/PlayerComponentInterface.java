@@ -22,7 +22,9 @@ public interface PlayerComponentInterface {
 
 	List<Player> getAllPlayers();
 
-	String getUsername();
+	long getMyId();
+
+	String getMyUsername();
 	
-	EmailType getEmail();
+	EmailType getMyEmail();
 }

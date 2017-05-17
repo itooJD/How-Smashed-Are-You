@@ -55,9 +55,14 @@ public class TimeMeasureComponentTest {
 
     @Test
     public void chronographTest(){
-        assertEquals("start of the Chronograph", 1, timeMeasureComponentInterface.startChronograph());
+        assertEquals("start of the Chronograph", 1, timeMeasureComponentInterface.startChronograph(0));
         TimeType currentTime = timeMeasureComponentInterface.getCurrentTime();
-        assertNotNull("current time is not empty",currentTime);
+        try {
+            Thread.sleep(10);
+            assertNotNull("current time is not empty",currentTime);
+            Thread.sleep(10);
+        } catch (InterruptedException e) {
+        }
         assertEquals("end of the Chronograph", 0, timeMeasureComponentInterface.endChronograph());
         TimeType stoppedTime = timeMeasureComponentInterface.getStoppedTime();
         assertNotNull("stopped time is not empty", stoppedTime);
@@ -69,7 +74,7 @@ public class TimeMeasureComponentTest {
         Random rand = new Random();
         TimeType bestTime = new TimeType(Long.MAX_VALUE);
         for(int i = 0; i < 10; i++) {
-            timeMeasureComponentInterface.startChronograph();
+            timeMeasureComponentInterface.startChronograph(0);
             try {
                 Thread.sleep(rand.nextInt(1000));
             } catch (InterruptedException e) {
@@ -84,15 +89,17 @@ public class TimeMeasureComponentTest {
 
     @Test
     public void getMyAvgTimeOfGameTest(){
+        double collector = 0.0;
         for(int i = 0; i < 10; i++) {
-            timeMeasureComponentInterface.startChronograph();
+            timeMeasureComponentInterface.startChronograph(0);
             try {
                 Thread.sleep(i);
             } catch (InterruptedException e) {
             }
             timeMeasureComponentInterface.endChronograph();
+            collector += timeMeasureComponentInterface.getStoppedTime().getMilliseconds();
         }
-        assertEquals("avg zeit ist", new TimeType(4.5), timeMeasureComponentInterface.getMyAvgTimeOfGame(0));
+        assertEquals("avg zeit ist", new TimeType(collector / 10), timeMeasureComponentInterface.getMyAvgTimeOfGame(0));
     }
 
     @Test

@@ -20,6 +20,6 @@ public class WindowPlayerProfile extends AppCompatActivity {
         playerComponentInterface = App.getPlayerComponentInterface();
 
         playerProfileEmailTextView = (TextView) findViewById(R.id.playerProfileEmailTextView);
-        playerProfileEmailTextView.setText(playerComponentInterface.getEmail().toString());
+        playerProfileEmailTextView.setText(playerComponentInterface.getMyEmail().toString());
     }
 }

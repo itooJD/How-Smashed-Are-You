@@ -1,5 +1,6 @@
 package com.emptyshit.hsay.timeMeasureComponent;
 
+import com.emptyshit.hsay.dataTypes.TimeType;
 import com.emptyshit.hsay.playerComponent.DaoSession;
 
 import org.greenrobot.greendao.query.QueryBuilder;
@@ -28,13 +29,16 @@ public class TimeDataRepository {
         TimeData timeData = new TimeData();
         timeData.setPlayerID(playerId);
         timeData.setGameID(gameId);
+        timeData.setBestTimeType(new TimeType(Double.MAX_VALUE));
+        timeData.setAvgTimeType(new TimeType(1));
+        timeData.setTimesPlayed(0);
+        saveTimeData(timeData);
         return timeData;
     }
 
 
     TimeData saveTimeData(TimeData timeData){
         timeDataDao.save(timeData);
-        //TODO
         return timeData;
     }
 }

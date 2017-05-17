@@ -75,11 +75,11 @@ public class PlayerComponentTest {
 
     @Test
     public void  getUsernameTest(){
-        assertEquals("" ,"johnny" ,playerComponentInterface.getUsername());
+        assertEquals("" ,"johnny" ,playerComponentInterface.getMyUsername());
     }
 
     @Test
     public void  getEmailTest(){
-        assertEquals("",new EmailType(this.johnnyEmail), playerComponentInterface.getEmail());
+        assertEquals("",new EmailType(this.johnnyEmail), playerComponentInterface.getMyEmail());
     }
 }

@@ -8,7 +8,7 @@ import com.emptyshit.hsay.dataTypes.*;
 
 public interface TimeMeasureComponentInterface {
 
-    int startChronograph();
+    int startChronograph(long gameId);
 
     int endChronograph();
 
