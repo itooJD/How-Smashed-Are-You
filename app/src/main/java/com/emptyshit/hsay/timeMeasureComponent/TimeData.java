@@ -7,6 +7,7 @@ import org.greenrobot.greendao.annotation.Convert;
 import org.greenrobot.greendao.annotation.Entity;
 import org.greenrobot.greendao.annotation.Generated;
 import org.greenrobot.greendao.annotation.Id;
+import org.greenrobot.greendao.annotation.Property;
 import org.greenrobot.greendao.annotation.Transient;
 
 
@@ -23,6 +24,7 @@ public class TimeData {
     @Generated
     private Long timeDataID;
 
+    @Property
     private long playerID;
 
     private long gameID;
@@ -54,6 +56,11 @@ public class TimeData {
         this.timesPlayed = timesPlayed;
     }
 
+    /**
+     *
+     * @param bestTimeType
+     * @return
+     */
     private int setBestTime(TimeType bestTimeType){
         if(!this.bestTimeType.isSmallerThan(bestTimeType)) {
             this.bestTimeType = bestTimeType;
@@ -62,11 +69,21 @@ public class TimeData {
         return 0;
     }
 
+    /**
+     *
+     * @param newTimeType
+     * @return
+     */
     private TimeType calculateAvgTime(TimeType newTimeType){
         avgTimeType = avgTimeType.multiply(timesPlayed/(timesPlayed+1)).add(newTimeType.divide(timesPlayed+1));
         return avgTimeType;
     }
 
+    /**
+     *
+     * @param newTimeType
+     * @return
+     */
     TimeType addNewTime(TimeType newTimeType){
         this.timeTypeLine.add(0, newTimeType);
         if(timeTypeLine.size() > 30 ){

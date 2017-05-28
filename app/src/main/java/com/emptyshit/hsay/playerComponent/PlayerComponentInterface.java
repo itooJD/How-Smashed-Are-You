@@ -14,6 +14,12 @@ public interface PlayerComponentInterface {
 	
 	boolean delete();
 
+	long getMyId();
+
+	String getMyUsername();
+	
+	EmailType getMyEmail();
+
 	Player getPlayerById(long id);
 
 	Player getPlayerByName(String name);
@@ -21,10 +27,4 @@ public interface PlayerComponentInterface {
 	Player getPlayerByEmail(String email);
 
 	List<Player> getAllPlayers();
-
-	long getMyId();
-
-	String getMyUsername();
-	
-	EmailType getMyEmail();
 }

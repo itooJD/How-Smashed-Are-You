@@ -2,13 +2,16 @@ package com.emptyshit.hsay.timeMeasureComponent;
 
 import com.emptyshit.hsay.dataTypes.TimeType;
 import com.emptyshit.hsay.playerComponent.DaoSession;
-import com.emptyshit.hsay.playerComponent.Player;
-import com.emptyshit.hsay.playerComponent.PlayerDao;
 
 import org.greenrobot.greendao.query.QueryBuilder;
 
 import java.util.List;
 
+/**
+ *  Time Data Repository
+ *
+ *  CRUD operations for the Time data
+ */
 public class TimeDataRepository {
 
     private TimeDataDao timeDataDao;
@@ -18,7 +21,13 @@ public class TimeDataRepository {
         this.timeDataDao = daoSession.getTimeDataDao();
     }
 
-    public TimeData getTimeData(long playerId, long gameId){
+    /**
+     * find the Time Data
+     * @param playerId
+     * @param gameId
+     * @return TimeData
+     */
+    TimeData getTimeData(long playerId, long gameId){
         this.queryBuilder = this.timeDataDao.queryBuilder().where(TimeDataDao.Properties.PlayerID.eq(playerId), TimeDataDao.Properties.GameID.eq(gameId));
         List<TimeData> timeDataList = this.queryBuilder.list();
         if(timeDataList.size() == 1){
@@ -28,18 +37,45 @@ public class TimeDataRepository {
         }
     }
 
-    public TimeData createTimeData(long playerId, long gameId){
+    /**
+     * Cr
+     * @param playerId
+     * @param gameId
+     * @return
+     */
+    private TimeData createTimeData(long playerId, long gameId){
         TimeData timeData = new TimeData();
         timeData.setPlayerID(playerId);
         timeData.setGameID(gameId);
         timeData.setTimesPlayed(0);
         timeData.setBestTimeType(new TimeType(Long.MAX_VALUE));
         timeData.setAvgTimeType(new TimeType(1));
-        timeDataDao.save(timeData);
+        saveTimeData(timeData);
         return timeData;
     }
 
-    public int deleteTimeData(long playerId, long gameId) {
+    /**
+     *
+     * @param timeData
+     * @return
+     */
+    TimeData saveTimeData(TimeData timeData){
+        this.timeDataDao.save(timeData);
+        return timeData;
+    }
+
+    TimeData updateTimeData(TimeData timeData){
+        this.timeDataDao.update(timeData);
+        return timeData;
+    }
+
+    /**
+     *
+     * @param playerId
+     * @param gameId
+     * @return
+     */
+    int deleteTimeData(long playerId, long gameId) {
         this.queryBuilder = this.timeDataDao.queryBuilder().where(TimeDataDao.Properties.PlayerID.eq(playerId), TimeDataDao.Properties.GameID.eq(gameId));
         List<TimeData> timeDataList = this.queryBuilder.list();
         if (timeDataList.size() == 1) {

@@ -16,12 +16,12 @@ import com.emptyshit.hsay.timeMeasureComponent.TimeMeasureComponentInterface;
 import org.greenrobot.greendao.database.Database;
 
 /**
- * Created by tungu on 04/05/2017.
+ * App initializes the Application with all necessary dependencies
+ * and provides the component-interfaces for the other classes
  */
 public class App extends Application{
 
     private static DaoSession daoSession = null;
-
     private static PlayerComponentInterface playerComponentInterface = null;
     private static PlayerRepository playerRepository= null;
     private static TimeMeasureComponentInterface timeMeasureComponentInterface = null;

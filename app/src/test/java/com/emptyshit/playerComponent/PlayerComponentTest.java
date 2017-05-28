@@ -2,11 +2,9 @@ package com.emptyshit.playerComponent;
 
 import android.content.Context;
 
-import com.emptyshit.hsay.application.App;
 import com.emptyshit.hsay.dataTypes.EmailType;
 import com.emptyshit.hsay.playerComponent.DaoMaster;
 import com.emptyshit.hsay.playerComponent.DaoSession;
-import com.emptyshit.hsay.playerComponent.Player;
 import com.emptyshit.hsay.playerComponent.PlayerComponent;
 import com.emptyshit.hsay.playerComponent.PlayerComponentInterface;
 import com.emptyshit.hsay.playerComponent.PlayerRepository;
@@ -18,8 +16,6 @@ import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.robolectric.RobolectricTestRunner;
 import org.robolectric.RuntimeEnvironment;
-
-import java.util.List;
 
 import static org.junit.Assert.*;
 

@@ -2,12 +2,9 @@ package com.emptyshit.timeMeasureComponent;
 
 import android.content.Context;
 
-import com.emptyshit.hsay.application.App;
-import com.emptyshit.hsay.dataTypes.EmailType;
 import com.emptyshit.hsay.dataTypes.TimeType;
 import com.emptyshit.hsay.playerComponent.DaoMaster;
 import com.emptyshit.hsay.playerComponent.DaoSession;
-import com.emptyshit.hsay.playerComponent.Player;
 import com.emptyshit.hsay.playerComponent.PlayerComponent;
 import com.emptyshit.hsay.playerComponent.PlayerComponentInterface;
 import com.emptyshit.hsay.playerComponent.PlayerRepository;

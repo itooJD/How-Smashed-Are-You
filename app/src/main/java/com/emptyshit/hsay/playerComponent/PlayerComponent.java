@@ -8,7 +8,6 @@ public class PlayerComponent implements PlayerComponentInterface {
 
 	private PlayerRepository playerRepository;
 
-	//TODO
 	private Player player;
 
 	public PlayerComponent(PlayerRepository playerRepository){
@@ -72,12 +71,12 @@ public class PlayerComponent implements PlayerComponentInterface {
 
 	@Override
 	public Player getPlayerByName(String name) {
-		return playerRepository.findPlayerByName(name);
+        return playerRepository.findPlayerByName(name);
 	}
 
 	@Override
 	public Player getPlayerByEmail(String email) {
-		return playerRepository.findPlayerByEmail(email);
+return playerRepository.findPlayerByEmail(email);
 	}
 
 	@Override
@@ -113,12 +112,6 @@ public class PlayerComponent implements PlayerComponentInterface {
 	}
 
 	private Player getLocalPlayer() {
-
-		//TODO
-		// load from local file
-		// if file not exist
-		// 		return null
-		// else return Player
 		return this.player;
 	}
 
@@ -128,7 +121,6 @@ public class PlayerComponent implements PlayerComponentInterface {
 			return true;
 		}
 		return false;
-
 	}
 
 	private boolean checkValidString(String text) {

@@ -22,10 +22,6 @@ import static org.junit.Assert.*;
 
 import java.util.List;
 
-/**
- * Created by tungu on 04/05/2017.
- */
-
 @RunWith(RobolectricTestRunner.class)
 public class PlayerRepositoryTest {
 
