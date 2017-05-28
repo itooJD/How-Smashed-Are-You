@@ -7,7 +7,6 @@ import com.emptyshit.hsay.playerComponent.PlayerComponentInterface;
  * Implementation of the Time Measure Component
  */
 public class TimeMeasureComponent implements TimeMeasureComponentInterface {
-
     private TimeData myTime = null;
     private TimeType stoppedTime = null;
 
@@ -21,7 +20,7 @@ public class TimeMeasureComponent implements TimeMeasureComponentInterface {
 
     @Override
     public TimeData addTime(long milliseconds, long gameId){
-        this.myTime = this.timeDataRepository.getTimeData(playerComponentInterface.getMyId(), gameId);
+        this.myTime = this.timeDataRepository.getTimeData(this.playerComponentInterface.getMyId(), gameId);
         if(milliseconds > 0) {
             this.stoppedTime = new TimeType(milliseconds);
             this.myTime.addNewTime(this.stoppedTime);
@@ -40,11 +39,13 @@ public class TimeMeasureComponent implements TimeMeasureComponentInterface {
 
     @Override
     public TimeType getMyBestTimeOfGame(int gameId) {
+        this.myTime = this.timeDataRepository.getTimeData(this.playerComponentInterface.getMyId(), gameId);
         return this.myTime.getBestTimeType();
     }
 
     @Override
     public TimeType getMyAvgTimeOfGame(int gameId) {
+        this.myTime = this.timeDataRepository.getTimeData(this.playerComponentInterface.getMyId(), gameId);
         return this.myTime.getAvgTimeType();
     }
 

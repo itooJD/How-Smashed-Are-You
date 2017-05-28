@@ -54,6 +54,7 @@ public class PlayerComponentTest {
         assertEquals("playersize = 0", 0, playerComponentInterface.getAllPlayers().size());
         playerComponentInterface.withoutRegister();
         assertEquals("playersize = 0", 0, playerComponentInterface.getAllPlayers().size());
+        this.playerComponentInterface.delete();
     }
 
     @Test

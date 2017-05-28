@@ -51,19 +51,8 @@ public class TimeMeasureComponentTest {
     }
 
     @Test
-    public void chronographTest(){
-        assertEquals("start of the Chronograph", 1, timeMeasureComponentInterface.startChronograph(0));
-        TimeType currentTime = timeMeasureComponentInterface.getCurrentTime();
-        try {
-            Thread.sleep(10);
-            assertNotNull("current time is not empty",currentTime);
-            Thread.sleep(10);
-        } catch (InterruptedException e) {
-        }
-        assertEquals("end of the Chronograph", 0, timeMeasureComponentInterface.endChronograph());
-        TimeType stoppedTime = timeMeasureComponentInterface.getStoppedTime();
-        assertNotNull("stopped time is not empty", stoppedTime);
-        assertNotEquals("saved mid time is not the same as the stopped time", currentTime, stoppedTime);
+    public void addTimeTest(){
+        assertEquals("start of the Chronograph", 1, timeMeasureComponentInterface.addTime(0,0));
     }
 
     @Test
@@ -71,12 +60,7 @@ public class TimeMeasureComponentTest {
         Random rand = new Random();
         TimeType bestTime = new TimeType(Long.MAX_VALUE);
         for(int i = 0; i < 10; i++) {
-            timeMeasureComponentInterface.startChronograph(0);
-            try {
-                Thread.sleep(rand.nextInt(1000));
-            } catch (InterruptedException e) {
-            }
-            timeMeasureComponentInterface.endChronograph();
+            timeMeasureComponentInterface.addTime(rand.nextInt(1000),0);
             if (!bestTime.isSmallerThan(timeMeasureComponentInterface.getStoppedTime())) {
                 bestTime = timeMeasureComponentInterface.getStoppedTime();
             }
@@ -87,13 +71,8 @@ public class TimeMeasureComponentTest {
     @Test
     public void getMyAvgTimeOfGameTest(){
         double collector = 0.0;
-        for(int i = 0; i < 10; i++) {
-            timeMeasureComponentInterface.startChronograph(0);
-            try {
-                Thread.sleep(i);
-            } catch (InterruptedException e) {
-            }
-            timeMeasureComponentInterface.endChronograph();
+        for(int i = 1; i < 11; i++) {
+            timeMeasureComponentInterface.addTime(i,0);
             collector += timeMeasureComponentInterface.getStoppedTime().getMilliseconds();
         }
         assertEquals("avg zeit ist", new TimeType(collector / 10), timeMeasureComponentInterface.getMyAvgTimeOfGame(0));

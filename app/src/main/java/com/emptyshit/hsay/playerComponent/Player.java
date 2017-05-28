@@ -2,6 +2,8 @@ package com.emptyshit.hsay.playerComponent;
 
 import com.emptyshit.hsay.dataTypes.EmailType;
 import com.emptyshit.hsay.dataTypes.EmailTypeConverter;
+
+import java.io.Serializable;
 import java.lang.Object;
 import org.greenrobot.greendao.annotation.*;
 
@@ -10,7 +12,7 @@ import org.greenrobot.greendao.annotation.*;
 
 
 @Entity
-public class Player {
+public class Player{
 
     @Id
     @Generated
@@ -22,16 +24,6 @@ public class Player {
     private EmailType email;
 
     private String password;
-
-    public Player(Long id){
-        this.playerID = id;
-    }
-
-    public Player(String playerName,EmailType email,String password){
-        this.email = email;
-        this.password = password;
-        this.playerName = playerName;
-    }
 
     @Generated(hash = 745898692)
     public Player(Long playerID, String playerName, EmailType email, String password) {

@@ -30,6 +30,11 @@ public class PlayerRepository{
 		return player;
 	}
 
+	Player update(Player player){
+		this.playerDao.update(player);
+		return player;
+	}
+
 	Player delete(long id) {
 		Player player = findPlayerById(id);
 		this.playerDao.deleteByKey(id);

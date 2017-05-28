@@ -2,6 +2,13 @@ package com.emptyshit.hsay.playerComponent;
 
 import com.emptyshit.hsay.dataTypes.EmailType;
 
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
+import java.io.IOException;
+import java.io.ObjectInputStream;
+import java.io.ObjectOutputStream;
 import java.util.List;
 
 public class PlayerComponent implements PlayerComponentInterface {
@@ -21,13 +28,18 @@ public class PlayerComponent implements PlayerComponentInterface {
 			return false;
 		}
 		if (password.equals(passwordConfirm)) {
-			EmailType email = new EmailType(emailString);
+			EmailType email;
+			try {
+				email = new EmailType(emailString);
+			} catch(Exception e){
+				return false;
+			}
 			Player player = new Player();
 			player.setPlayerName(playername);
 			player.setEmail(email);
 			player.setPassword(password);
 			saveLocalPlayer(player);
-			playerRepository.save(player);
+			this.playerRepository.save(player);
 			return true;
 		} else {
 			return false;
@@ -36,9 +48,9 @@ public class PlayerComponent implements PlayerComponentInterface {
 
 	@Override
 	public boolean withoutRegister() {
-		if(getLocalPlayer() == null){
-			Player player = new Player();
-			saveLocalPlayer(player);
+		Player player = loadLocalPlayer();
+		if(player == null){
+			saveLocalPlayer(new Player());
 			return true;
 		}
 		return false;
@@ -46,8 +58,9 @@ public class PlayerComponent implements PlayerComponentInterface {
 
 	@Override
 	public boolean login(String playername, String password) {
-		Player player = playerRepository.findPlayerByName(playername);
+		Player player = this.playerRepository.findPlayerByName(playername);
 		if(player != null && player.comparePassword(password)){
+			this.player = player;
 			saveLocalPlayer(player);
 			return true;
 		}
@@ -56,71 +69,98 @@ public class PlayerComponent implements PlayerComponentInterface {
 
 	@Override
 	public boolean delete() {
-		Player player = getLocalPlayer();
-		if(player != null){
-			playerRepository.delete(player.getPlayerID());
+		if(this.player != null){
+			if(this.player.getPlayerID() != null) {
+				this.playerRepository.delete(this.player.getPlayerID());
+			}
+			deleteLocalPlayer();
 			return true;
 		}
 		return false;
 	}
 
 	@Override
-	public Player getPlayerById(long id) {
-		return playerRepository.findPlayerById(id);
-	}
-
-	@Override
-	public Player getPlayerByName(String name) {
-        return playerRepository.findPlayerByName(name);
-	}
-
-	@Override
-	public Player getPlayerByEmail(String email) {
-return playerRepository.findPlayerByEmail(email);
-	}
-
-	@Override
-	public List<Player> getAllPlayers() {
-		return playerRepository.getAllPlayers();
-	}
-
-	@Override
 	public long getMyId(){
-		Player player = getLocalPlayer();
-		if(player != null){
-			return player.getPlayerID();
+		if(this.player != null){
+			return this.player.getPlayerID();
 		}
 		return 0;
 	}
 
 	@Override
+	public boolean updateMyEmail(String email) {
+		EmailType newEmail;
+		try {
+			newEmail = new EmailType(email);
+		} catch(Exception e){
+			return false;
+		}
+		if(newEmail != null) {
+			this.player.setEmail(newEmail);
+			this.playerRepository.update(this.player);
+			return true;
+		}
+		return false;
+	}
+
+	@Override
+	public boolean updatePassword(String password, String passwordConfirm) {
+		if(password.equals(passwordConfirm)){
+			this.player.setPassword(password);
+			this.playerRepository.update(this.player);
+			return true;
+		}
+		return false;
+	}
+
+	@Override
 	public String getMyUsername() {
-		Player player = getLocalPlayer();
-		if(player != null){
-			return player.getPlayerName();
+		if(this.player != null){
+			return this.player.getPlayerName();
 		}
 		return null;
 	}
 
 	@Override
 	public EmailType getMyEmail() {
-		Player player = getLocalPlayer();
-		if(player != null) {
-			return player.getEmail();
+		if(this.player != null) {
+			return this.player.getEmail();
 		}
 		return null;
 	}
 
-	private Player getLocalPlayer() {
+	@Override
+	public Player getPlayerById(long id) {
+		return this.playerRepository.findPlayerById(id);
+	}
+
+	@Override
+	public Player getPlayerByName(String name) {
+		return this.playerRepository.findPlayerByName(name);
+	}
+
+	@Override
+	public Player getPlayerByEmail(String email) {
+		return this.playerRepository.findPlayerByEmail(email);
+	}
+
+	@Override
+	public List<Player> getAllPlayers() {
+		return this.playerRepository.getAllPlayers();
+	}
+
+	private boolean saveLocalPlayer(Player player){
+		this.player = player;
+		return this.player != null;
+	}
+
+	private Player loadLocalPlayer(){
 		return this.player;
 	}
 
-	private boolean saveLocalPlayer(Player player) {
-		if(player != null){
-			this.player = player;
-			return true;
-		}
-		return false;
+	private boolean deleteLocalPlayer(){
+		this.player = null;
+		return this.player == null;
 	}
 
 	private boolean checkValidString(String text) {

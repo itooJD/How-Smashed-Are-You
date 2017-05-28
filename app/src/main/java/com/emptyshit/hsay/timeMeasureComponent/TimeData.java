@@ -75,7 +75,11 @@ public class TimeData {
      * @return
      */
     private TimeType calculateAvgTime(TimeType newTimeType){
-        avgTimeType = avgTimeType.multiply(timesPlayed/(timesPlayed+1)).add(newTimeType.divide(timesPlayed+1));
+        if(timesPlayed > 0) {
+            avgTimeType = avgTimeType.multiply(timesPlayed / (timesPlayed + 1.0)).add(newTimeType.divide(timesPlayed + 1));
+        } else {
+            avgTimeType = newTimeType;
+        }
         return avgTimeType;
     }
 
@@ -89,9 +93,9 @@ public class TimeData {
         if(timeTypeLine.size() > 30 ){
             this.timeTypeLine.remove(30);
         }
-        this.timesPlayed++;
         setBestTime(newTimeType);
         calculateAvgTime(newTimeType);
+        this.timesPlayed++;
         return newTimeType;
     }
 

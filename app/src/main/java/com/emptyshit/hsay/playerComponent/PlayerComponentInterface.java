@@ -16,6 +16,10 @@ public interface PlayerComponentInterface {
 
 	long getMyId();
 
+    boolean updateMyEmail(String email);
+
+    boolean updatePassword(String password, String passwordConfirm);
+
 	String getMyUsername();
 	
 	EmailType getMyEmail();

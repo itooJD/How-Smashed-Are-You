@@ -36,30 +36,29 @@ public class PlayerRepositoryTest {
 
     @Before
     public void construct(){
-
         this.context = RuntimeEnvironment.application;
         DaoMaster.DevOpenHelper helper = new DaoMaster.DevOpenHelper(this.context, "db");
         Database db = helper.getWritableDb();
-        daoSession = new DaoMaster(db).newSession();
-        playerRepository = new PlayerRepository(daoSession);
-        playerComponentInterface = new PlayerComponent(this.playerRepository);
+        this.daoSession = new DaoMaster(db).newSession();
+        this.playerRepository = new PlayerRepository(this.daoSession);
+        this.playerComponentInterface = new PlayerComponent(this.playerRepository);
 
         this.john = new Player(new Long(1), "john", new EmailType("john@test.de"), "123456");
         this.doe = new Player(new Long(2), "doe", new EmailType("doe@test.de"), "123456");
         this.three = new Player(new Long(3), "three", new EmailType("three@test.de"), "123456");
-        playerComponentInterface.register("john","john@test.de","123456","123456");
-        playerComponentInterface.register("doe","doe@test.de","123456","123456");
-        playerComponentInterface.register("three","three@test.de","123456","123456");
+        this.playerComponentInterface.register("john","john@test.de","123456","123456");
+        this.playerComponentInterface.register("doe","doe@test.de","123456","123456");
+        this.playerComponentInterface.register("three","three@test.de","123456","123456");
     }
 
     @After
     public void destruct(){
-        playerComponentInterface.login("john", "123456");
-        playerComponentInterface.delete();
-        playerComponentInterface.login("doe", "123456");
-        playerComponentInterface.delete();
-        playerComponentInterface.login("three", "123456");
-        playerComponentInterface.delete();
+        this.playerComponentInterface.login("john", "123456");
+        this.playerComponentInterface.delete();
+        this.playerComponentInterface.login("doe", "123456");
+        this.playerComponentInterface.delete();
+        this.playerComponentInterface.login("three", "123456");
+        this.playerComponentInterface.delete();
     }
 
     @Test
@@ -76,22 +75,45 @@ public class PlayerRepositoryTest {
 
     @Test
     public void getPlayerByIdTest(){
-        assertEquals("", this.john, this.playerComponentInterface.getPlayerById(1));
-        assertEquals("", this.doe, this.playerComponentInterface.getPlayerById(2));
-        assertEquals("", this.three, this.playerComponentInterface.getPlayerById(3));
+        assertEquals("find john by Id", this.john, this.playerComponentInterface.getPlayerById(1));
+        assertEquals("find doe by Id", this.doe, this.playerComponentInterface.getPlayerById(2));
+        assertEquals("find three by Id", this.three, this.playerComponentInterface.getPlayerById(3));
     }
 
     @Test
     public void findPlayerByNameTest(){
-        assertEquals("", this.john, this.playerComponentInterface.getPlayerByName("john"));
-        assertEquals("", this.doe, this.playerComponentInterface.getPlayerByName("doe"));
-        assertEquals("", this.three, this.playerComponentInterface.getPlayerByName("three"));
+        assertEquals("find john by name", this.john, this.playerComponentInterface.getPlayerByName("john"));
+        assertEquals("find doe by name", this.doe, this.playerComponentInterface.getPlayerByName("doe"));
+        assertEquals("find three by name", this.three, this.playerComponentInterface.getPlayerByName("three"));
     }
 
     @Test
     public void findPlayerByEmailTypeTest(){
-        assertEquals("", this.john, this.playerComponentInterface.getPlayerByEmail("john@test.de"));
-        assertEquals("", this.doe, this.playerComponentInterface.getPlayerByEmail("doe@test.de"));
-        assertEquals("", this.three, this.playerComponentInterface.getPlayerByEmail("three@test.de"));
+        assertEquals("find john by EMail", this.john, this.playerComponentInterface.getPlayerByEmail("john@test.de"));
+        assertEquals("find doe by EMail", this.doe, this.playerComponentInterface.getPlayerByEmail("doe@test.de"));
+        assertEquals("find three by EMail", this.three, this.playerComponentInterface.getPlayerByEmail("three@test.de"));
+    }
+
+    @Test
+    public void updateEmailTest(){
+        this.playerComponentInterface.login("doe", "123456");
+        assertEquals("update EMail of doe with invalid Email", false, this.playerComponentInterface.updateMyEmail("keineEmail"));
+        assertEquals("find doe by old EMail", this.doe, this.playerComponentInterface.getPlayerByEmail("doe@test.de"));
+
+        assertEquals("update EMail of doe with valid Email", true, this.playerComponentInterface.updateMyEmail("nichtDoe@test.de"));
+        Player nichtDoe = new Player(new Long(2), "doe", new EmailType("nichtDoe@test.de"), "123456");
+        assertEquals("find nichtDoe by new EMail", nichtDoe, this.playerComponentInterface.getPlayerByEmail("nichtDoe@test.de"));
+    }
+
+    @Test
+    public void updatePasswordTest(){
+        this.playerComponentInterface.login("doe", "123456");
+        assertEquals("update password of doe with invalid password confirmation", false, this.playerComponentInterface.updatePassword("neuewPassword", "falschesPassword"));
+        assertEquals("log in doe with old password", true, this.playerComponentInterface.login("doe", "123456"));
+        assertEquals("log in doe with invalid new password", false, this.playerComponentInterface.login("doe", "neuesPassword"));
+
+        assertEquals("update password with valid inputs", true, this.playerComponentInterface.updatePassword("neuesPassword", "neuesPassword"));
+        assertEquals("log in doe with invalid old password", false, this.playerComponentInterface.login("doe", "123456"));
+        assertEquals("log in doe with new password", true, this.playerComponentInterface.login("doe", "neuesPassword"));
     }
 }
