@@ -7,6 +7,7 @@ import org.greenrobot.greendao.annotation.Convert;
 import org.greenrobot.greendao.annotation.Entity;
 import org.greenrobot.greendao.annotation.Generated;
 import org.greenrobot.greendao.annotation.Id;
+import org.greenrobot.greendao.annotation.Property;
 import org.greenrobot.greendao.annotation.Transient;
 
 
@@ -19,16 +20,19 @@ import java.util.ArrayList;
 @Entity
 public class TimeData {
 
-    // fehlt eine Relation zu Player
     @Id
-    private int playerID;
+    @Generated
+    private Long timeDataID;
 
-    private int gameID;
+    @Property
+    private long playerID;
 
-    @Convert(converter = TimeTypeConverter.class, columnType = Float.class)
+    private long gameID;
+
+    @Convert(converter = TimeTypeConverter.class, columnType = Double.class)
     private TimeType bestTimeType = null;
 
-    @Convert(converter = TimeTypeConverter.class, columnType = Float.class)
+    @Convert(converter = TimeTypeConverter.class, columnType = Double.class)
     private TimeType avgTimeType = null;
 
     // TimeType eine eigene Entität?
@@ -37,13 +41,14 @@ public class TimeData {
 
     private int timesPlayed = 0;
 
-
     @Generated(hash = 61090496)
     public TimeData() {
     }
 
-    @Generated(hash = 1642838466)
-    public TimeData(int playerID, int gameID, TimeType bestTimeType, TimeType avgTimeType, int timesPlayed) {
+    @Generated(hash = 1203745979)
+    public TimeData(Long timeDataID, long playerID, long gameID, TimeType bestTimeType, TimeType avgTimeType,
+            int timesPlayed) {
+        this.timeDataID = timeDataID;
         this.playerID = playerID;
         this.gameID = gameID;
         this.bestTimeType = bestTimeType;
@@ -51,71 +56,98 @@ public class TimeData {
         this.timesPlayed = timesPlayed;
     }
 
+    /**
+     *
+     * @param bestTimeType
+     * @return
+     */
     private int setBestTime(TimeType bestTimeType){
-        if(bestTimeType.isSmallerThan(bestTimeType)) {
+        if(!this.bestTimeType.isSmallerThan(bestTimeType)) {
             this.bestTimeType = bestTimeType;
             return 1;
         }
         return 0;
     }
 
+    /**
+     *
+     * @param newTimeType
+     * @return
+     */
     private TimeType calculateAvgTime(TimeType newTimeType){
-        avgTimeType = avgTimeType.multiply(timesPlayed/(timesPlayed+1)).add(newTimeType.divide(timesPlayed+1));
+        if(timesPlayed > 0) {
+            avgTimeType = avgTimeType.multiply(timesPlayed / (timesPlayed + 1.0)).add(newTimeType.divide(timesPlayed + 1));
+        } else {
+            avgTimeType = newTimeType;
+        }
         return avgTimeType;
     }
 
-    public TimeType addNewTime(TimeType newTimeType){
+    /**
+     *
+     * @param newTimeType
+     * @return
+     */
+    TimeType addNewTime(TimeType newTimeType){
         this.timeTypeLine.add(0, newTimeType);
         if(timeTypeLine.size() > 30 ){
             this.timeTypeLine.remove(30);
         }
-        this.timesPlayed++;
         setBestTime(newTimeType);
         calculateAvgTime(newTimeType);
+        this.timesPlayed++;
         return newTimeType;
     }
 
-    public int getPlayerID() {
+    long getPlayerID() {
         return playerID;
     }
 
-    public int getGameID() {
+    long getGameID() {
         return gameID;
     }
 
-    public TimeType getBestTimeType() {
+    TimeType getBestTimeType() {
         return bestTimeType;
     }
 
-    public TimeType getAvgTimeType() {
+    TimeType getAvgTimeType() {
         return avgTimeType;
     }
 
-    public ArrayList<TimeType> getTimeTypeLine() {
+    ArrayList<TimeType> getTimeTypeLine() {
         return timeTypeLine;
     }
 
-    public int getTimesPlayed() {
+    int getTimesPlayed() {
         return timesPlayed;
     }
 
-    public void setPlayerID(int playerID) {
+    void setPlayerID(long playerID) {
         this.playerID = playerID;
     }
 
-    public void setGameID(int gameID) {
+    void setGameID(long gameID) {
         this.gameID = gameID;
     }
 
-    public void setTimesPlayed(int timesPlayed) {
+    void setTimesPlayed(int timesPlayed) {
         this.timesPlayed = timesPlayed;
     }
 
-    public void setBestTimeType(TimeType bestTimeType) {
+    void setBestTimeType(TimeType bestTimeType) {
         this.bestTimeType = bestTimeType;
     }
 
-    public void setAvgTimeType(TimeType avgTimeType) {
+    void setAvgTimeType(TimeType avgTimeType) {
         this.avgTimeType = avgTimeType;
+    }
+
+    public Long getTimeDataID() {
+        return this.timeDataID;
+    }
+
+    public void setTimeDataID(Long timeDataID) {
+        this.timeDataID = timeDataID;
     }
 }

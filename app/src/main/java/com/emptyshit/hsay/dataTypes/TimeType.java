@@ -5,9 +5,9 @@ package com.emptyshit.hsay.dataTypes;
  */
 public class TimeType {
 
-    private float milliseconds;
+    private double milliseconds;
 
-    public TimeType(float milliseconds){
+    public TimeType(double milliseconds){
         this.milliseconds = milliseconds;
     }
 
@@ -34,7 +34,7 @@ public class TimeType {
      * @param number
      * @return
      */
-    public TimeType multiply(float number){
+    public TimeType multiply(double number){
         return new TimeType(this.milliseconds * number);
     }
 
@@ -43,16 +43,33 @@ public class TimeType {
      * @param number
      * @return
      */
-    public TimeType divide(int number){
+    public TimeType divide(double number){
        return  new TimeType(this.milliseconds/ number);
     }
 
-    public float getMilliseconds() {
+    public double getMilliseconds() {
         return this.milliseconds;
     }
 
     @Override
     public String toString(){
         return this.milliseconds + " ms";
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+
+        TimeType timeType = (TimeType) o;
+
+        return Double.compare(timeType.milliseconds, milliseconds) == 0;
+
+    }
+
+    @Override
+    public int hashCode() {
+        long temp = Double.doubleToLongBits(milliseconds);
+        return (int) (temp ^ (temp >>> 32));
     }
 }

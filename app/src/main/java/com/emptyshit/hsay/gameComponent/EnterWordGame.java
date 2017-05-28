@@ -8,28 +8,20 @@ import java.util.Random;
 
 public class EnterWordGame {
 
-    private String[] wordsList;
-    private Random rand;
+    private String[] wordsList = {"OpenGL", "ZEUS"};
     private String word;
-    private String input;
 
     public EnterWordGame(){
-
     }
 
     public String wordToTypeIn(){
-        int number = rand.nextInt(this.wordsList.length);
-        word = wordsList[number];
-        return word;
+        Random rand = new Random();
+        this.word = this.wordsList[rand.nextInt(this.wordsList.length)];
+        return this.word;
     }
 
     public boolean compareWords(String input){
-        if (word.equals(input)){
-            return true;
-        }
-        else {
-            return false;
-        }
+        return word.equals(input);
     }
 
 }
