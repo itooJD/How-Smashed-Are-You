@@ -13,7 +13,7 @@ import com.emptyshit.hsay.application.App;
 
 public class WindowStart extends AppCompatActivity {
 
-    private Button startWindowRegisterButton;
+    private Button startWindowRegisterButton, startWindowLoginButton;
     private Button startWindowPlayWithoutSignIn;
     private TextView startWindowTesterTextView;
 
@@ -21,6 +21,7 @@ public class WindowStart extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_window_start);
+        startWindowLoginButton = (Button) findViewById(R.id.startWindowLoginButton);
         startWindowRegisterButton = (Button) findViewById(R.id.startWindowRegisterButton);
         startWindowPlayWithoutSignIn = (Button) findViewById(R.id.startWindowPlayWithoutSignIn);
     }
@@ -38,6 +39,13 @@ public class WindowStart extends AppCompatActivity {
             public void onClick(View view) {
                 //TODO
                 // change
+            }
+        });
+        startWindowLoginButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(getApplicationContext(), WindowLogIn.class);
+                startActivity(intent);
             }
         });
     }

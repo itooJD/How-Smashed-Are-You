@@ -9,6 +9,7 @@ import android.widget.EditText;
 import android.widget.TextView;
 
 import com.emptyshit.hsay.R;
+import com.emptyshit.hsay.application.App;
 
 public class WindowLogIn extends AppCompatActivity {
 
@@ -27,6 +28,7 @@ public class WindowLogIn extends AppCompatActivity {
         logInUserNameEditText = (EditText) findViewById(R.id.logInUserNameEditText);
         logInPasswordEditText = (EditText) findViewById(R.id.logInPasswordEditText);
         logInConfirmButton = (Button) findViewById(R.id.logInConfirmButton);
+
     }
 
     private void setupClickListener(){
