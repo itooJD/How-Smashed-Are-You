@@ -4,43 +4,64 @@ import com.emptyshit.hsay.dataTypes.TimeType;
 import com.emptyshit.hsay.playerComponent.PlayerComponentInterface;
 
 /**
- * Created by tungu on 09/04/2017.
+ * Implementation of the Time Measure Component
  */
-
 public class TimeMeasureComponent implements TimeMeasureComponentInterface {
+    private TimeData myTime = null;
+    private TimeType stoppedTime = null;
 
-    private PlayerComponentInterface playerComponentInterface;
+    private TimeDataRepository timeDataRepository = null;
+    private PlayerComponentInterface playerComponentInterface = null;
 
-    public TimeMeasureComponent(){
-
-    }
-
-    public TimeMeasureComponent(PlayerComponentInterface playerComponentInterface){
+    public TimeMeasureComponent(PlayerComponentInterface playerComponentInterface, TimeDataRepository timeDataRepository){
         this.playerComponentInterface = playerComponentInterface;
+        this.timeDataRepository = timeDataRepository;
     }
 
     @Override
-    public TimeType getCurrentTime() {
-        return null;
+    public TimeData addTime(long milliseconds, long gameId){
+        this.myTime = this.timeDataRepository.getTimeData(this.playerComponentInterface.getMyId(), gameId);
+        if(milliseconds > 0) {
+            this.stoppedTime = new TimeType(milliseconds);
+            this.myTime.addNewTime(this.stoppedTime);
+            this.timeDataRepository.updateTimeData(this.myTime);
+        }
+        return this.myTime;
     }
 
     @Override
-    public TimeType getMyBestTimeOfGame(int gameID, int playerID) {
-        return null;
+    public TimeType getStoppedTime() {
+        if(this.stoppedTime == null){
+            return new TimeType(0);
+        }
+        return this.stoppedTime;
     }
 
     @Override
-    public TimeType getMyAvgTimeOfGame(int gameID, int playerID) {
-        return null;
+    public TimeType getMyBestTimeOfGame(int gameId) {
+        this.myTime = this.timeDataRepository.getTimeData(this.playerComponentInterface.getMyId(), gameId);
+        return this.myTime.getBestTimeType();
     }
 
     @Override
-    public TimeType[] getAllTimeOfGame(int gameID, int playerID) {
+    public TimeType getMyAvgTimeOfGame(int gameId) {
+        this.myTime = this.timeDataRepository.getTimeData(this.playerComponentInterface.getMyId(), gameId);
+        return this.myTime.getAvgTimeType();
+    }
+
+    @Override
+    public TimeType[] getAllTimeOfGame(int gameId, int playerId) {
+        //TODO
         return new TimeType[0];
     }
 
     @Override
-    public TimeData[] getBestOfGame(int gameID) {
-        return new TimeData[0];
+    public TimeType[] getBestOfGame(int gameId) {
+        //TODO
+        return new TimeType[0];
+    }
+
+    private boolean loadLocalTimeOfGame(int gameId){
+        return this.timeDataRepository.getTimeData(this.playerComponentInterface.getMyId(), gameId) != null;
     }
 }

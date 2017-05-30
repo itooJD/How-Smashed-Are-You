@@ -3,45 +3,48 @@ package com.emptyshit.hsay.timeMeasureComponent;
 import com.emptyshit.hsay.dataTypes.*;
 
 /**
- * Created by tungu on 09/04/2017.
+ * Interface of the Time Measure Component, which provides the methods for operating the chronograph
+ * and accessing the Time Data
  */
-
 public interface TimeMeasureComponentInterface {
 
     /**
-     *
-     * @return
+     * starting the local chronograph
+     * @param gameId
+     * @return code(0 = chronograph stopped, 1 = chronograph running)
      */
-    public TimeType getCurrentTime();
+    TimeData addTime(long milliseconds, long gameId);
 
     /**
      *
-     * @param gameID
-     * @param playerID
      * @return
      */
-    public TimeType getMyBestTimeOfGame(int gameID, int playerID);
+    TimeType getStoppedTime();
 
     /**
      *
-     * @param gameID
-     * @param playerID
+     * @param gameId
      * @return
      */
-    public TimeType getMyAvgTimeOfGame(int gameID, int playerID);
+    TimeType getMyBestTimeOfGame(int gameId);
 
     /**
      *
-     * @param gameID
-     * @param playerID
-     * @return
      */
-    public TimeType[] getAllTimeOfGame(int gameID, int playerID);
+    TimeType getMyAvgTimeOfGame(int gameId);
 
     /**
      *
-     * @param gameID
+     * @param gameId
+     * @param playerId
      * @return
      */
-    public TimeData[] getBestOfGame(int gameID);
+    TimeType[] getAllTimeOfGame(int gameId, int playerId);
+
+    /**
+     *
+     * @param gameId
+     * @return
+     */
+    TimeType[] getBestOfGame(int gameId);
 }
