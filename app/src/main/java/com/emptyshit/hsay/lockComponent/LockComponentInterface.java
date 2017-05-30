@@ -5,4 +5,12 @@ package com.emptyshit.hsay.lockComponent;
  */
 
 public interface LockComponentInterface {
+
+    void lockApp();
+
+    boolean getRunningApps();
+
+    void lockAppIntent();
+
+    void releaseLock();
 }

@@ -25,6 +25,7 @@
         <activity android:name=".frontsPlayer.WindowRegister"></activity>
         <activity android:name=".frontsPlayer.WindowPlayerProfile"></activity>
         <activity android:name=".frontsGames.WindowEnterWordGame"></activity>
+        <activity android:name=".frontsLock.WindowLock"></activity>
     </application>
 
 </manifest>
