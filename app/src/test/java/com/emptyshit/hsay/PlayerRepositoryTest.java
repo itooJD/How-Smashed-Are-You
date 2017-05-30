@@ -15,7 +15,7 @@ import java.util.List;
  */
 
 public class PlayerRepositoryTest {
-
+/*
     private PlayerRepository playerRepository;
     private List<Player> players;
 
@@ -54,4 +54,5 @@ public class PlayerRepositoryTest {
         assertTrue(player == players.get(1));
         assertTrue(player.getEmail().equals("josh@mail.com"));
     }
+*/
 }
