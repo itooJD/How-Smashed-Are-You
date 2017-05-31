@@ -27,6 +27,7 @@ public class TimeData {
     @Property
     private long playerID;
 
+    @Property
     private long gameID;
 
     @Convert(converter = TimeTypeConverter.class, columnType = Double.class)

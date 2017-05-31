@@ -1,5 +1,6 @@
 package com.emptyshit.hsay.frontsGames;
 
+import android.content.Intent;
 import android.graphics.Color;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -10,6 +11,7 @@ import android.widget.TextView;
 
 import com.emptyshit.hsay.R;
 import com.emptyshit.hsay.gameComponent.EnterWordGame;
+import com.emptyshit.hsay.timeMeasureComponent.WindowTimeMeasure;
 
 public class WindowEnterWordGame extends AppCompatActivity {
 
@@ -42,6 +44,8 @@ public class WindowEnterWordGame extends AppCompatActivity {
                 if(enterWordGame.compareWords(enterWordGameTextInputEditText.getText().toString())){
                     enterWordGameRightOrWrongTextView.setText("Right");
                     enterWordGameRightOrWrongTextView.setTextColor(Color.GREEN);
+                    Intent intent = new Intent(getApplicationContext(), WindowTimeMeasure.class);
+                    startActivity(intent);
                 } else{
                     enterWordGameRightOrWrongTextView.setText("Wrong");
                     enterWordGameRightOrWrongTextView.setTextColor(Color.RED);

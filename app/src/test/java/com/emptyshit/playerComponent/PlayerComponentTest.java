@@ -52,7 +52,9 @@ public class PlayerComponentTest {
     public void  withoutRegisterTest(){
         playerComponentInterface.delete();
         assertEquals("playersize = 0", 0, playerComponentInterface.getAllPlayers().size());
+
         playerComponentInterface.withoutRegister();
+        assertNotEquals("", null, playerComponentInterface.getMyId());
         assertEquals("playersize = 0", 0, playerComponentInterface.getAllPlayers().size());
         this.playerComponentInterface.delete();
     }

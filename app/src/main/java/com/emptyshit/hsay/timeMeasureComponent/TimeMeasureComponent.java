@@ -19,7 +19,7 @@ public class TimeMeasureComponent implements TimeMeasureComponentInterface {
     }
 
     @Override
-    public TimeData addTime(long milliseconds, long gameId){
+    public TimeData addTime(long milliseconds, int gameId){
         this.myTime = this.timeDataRepository.getTimeData(this.playerComponentInterface.getMyId(), gameId);
         if(milliseconds > 0) {
             this.stoppedTime = new TimeType(milliseconds);

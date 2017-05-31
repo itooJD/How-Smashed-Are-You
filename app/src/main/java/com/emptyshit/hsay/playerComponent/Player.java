@@ -14,7 +14,7 @@ import org.greenrobot.greendao.annotation.*;
 @Entity
 public class Player{
 
-    @Id
+    @Id(autoincrement = true)
     @Generated
     private Long playerID;
 
@@ -25,16 +25,16 @@ public class Player{
 
     private String password;
 
+    @Generated(hash = 30709322)
+    public Player() {
+    }
+
     @Generated(hash = 745898692)
     public Player(Long playerID, String playerName, EmailType email, String password) {
         this.playerID = playerID;
         this.playerName = playerName;
         this.email = email;
         this.password = password;
-    }
-
-    @Generated(hash = 30709322)
-    public Player() {
     }
 
     void setPlayerID(Long playerID) {

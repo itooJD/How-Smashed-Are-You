@@ -13,7 +13,7 @@ public interface TimeMeasureComponentInterface {
      * @param gameId
      * @return code(0 = chronograph stopped, 1 = chronograph running)
      */
-    TimeData addTime(long milliseconds, long gameId);
+    TimeData addTime(long milliseconds, int gameId);
 
     /**
      *

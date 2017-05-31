@@ -50,7 +50,10 @@ public class PlayerComponent implements PlayerComponentInterface {
 	public boolean withoutRegister() {
 		Player player = loadLocalPlayer();
 		if(player == null){
-			saveLocalPlayer(new Player());
+			player = new Player();
+			saveLocalPlayer(player);
+			this.playerRepository.save(player);
+			this.playerRepository.delete(player.getPlayerID());
 			return true;
 		}
 		return false;

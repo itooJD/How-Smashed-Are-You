@@ -10,11 +10,12 @@ import android.widget.TextView;
 
 import com.emptyshit.hsay.R;
 import com.emptyshit.hsay.application.App;
+import com.emptyshit.hsay.timeMeasureComponent.WindowTimeMeasure;
 
 public class WindowStart extends AppCompatActivity {
 
     private Button startWindowRegisterButton, startWindowLoginButton;
-    private Button startWindowPlayWithoutSignIn;
+    private Button startWindowPlayWithoutSignIn, timerButton;
     private TextView startWindowTesterTextView;
 
     @Override
@@ -22,8 +23,10 @@ public class WindowStart extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_window_start);
         startWindowLoginButton = (Button) findViewById(R.id.startWindowLoginButton);
+        timerButton = (Button) findViewById(R.id.timerButton);
         startWindowRegisterButton = (Button) findViewById(R.id.startWindowRegisterButton);
         startWindowPlayWithoutSignIn = (Button) findViewById(R.id.startWindowPlayWithoutSignIn);
+        setupClickListener();
     }
 
     private void setupClickListener(){
@@ -39,6 +42,17 @@ public class WindowStart extends AppCompatActivity {
             public void onClick(View view) {
                 //TODO
                 // change
+            }
+        });
+
+        //TODO
+        // wieder loeschen
+        timerButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                App.getPlayerComponentInterface().withoutRegister();
+                Intent intent = new Intent(getApplicationContext(), WindowTimeMeasure.class);
+                startActivity(intent);
             }
         });
         startWindowLoginButton.setOnClickListener(new View.OnClickListener() {

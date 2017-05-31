@@ -47,6 +47,11 @@ public class TimeType {
        return  new TimeType(this.milliseconds/ number);
     }
 
+    public double setMilliseconds(double milliseconds){
+        this.milliseconds = milliseconds;
+        return this.milliseconds;
+    }
+
     public double getMilliseconds() {
         return this.milliseconds;
     }
