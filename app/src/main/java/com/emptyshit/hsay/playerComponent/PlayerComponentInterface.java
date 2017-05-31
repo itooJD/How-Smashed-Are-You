@@ -12,6 +12,10 @@ public interface PlayerComponentInterface {
 	
 	boolean login(String playername, String password);
 	
+	boolean loggedIn();
+	
+	boolean logout();
+	
 	boolean delete();
 
 	long getMyId();

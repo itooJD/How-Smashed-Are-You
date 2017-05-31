@@ -68,6 +68,17 @@ public class PlayerComponent implements PlayerComponentInterface {
 	}
 
 	@Override
+	public boolean loggedIn(){
+		return this.player != null;
+	}
+
+	@Override
+	public boolean logout(){
+		this.player = null;
+		return this.player == null;
+	}
+
+	@Override
 	public boolean delete() {
 		if(this.player != null){
 			if(this.player.getPlayerID() != null) {
