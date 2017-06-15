@@ -2,6 +2,7 @@ package com.emptyshit.hsay.timeMeasureComponent;
 
 import com.emptyshit.hsay.dataTypes.TimeType;
 import com.emptyshit.hsay.dataTypes.TimeTypeConverter;
+import java.io.Serializable;
 
 import org.greenrobot.greendao.annotation.Convert;
 import org.greenrobot.greendao.annotation.Entity;
@@ -18,16 +19,17 @@ import java.util.ArrayList;
  * Representation of the Time
  */
 @Entity
-public class TimeData {
+public class TimeData implements Serializable{
 
     @Id
     @Generated
-    private Long timeDataID;
+    private Long timeDataId;
+
+    @Transient
+    private static final long serialVersionUID = 2L;
 
     @Property
     private long playerID;
-
-    private long gameID;
 
     @Convert(converter = TimeTypeConverter.class, columnType = Double.class)
     private TimeType bestTimeType = null;
@@ -39,21 +41,21 @@ public class TimeData {
     @Transient
     private ArrayList<TimeType> timeTypeLine = new ArrayList<TimeType>();
 
+    @Property
     private int timesPlayed = 0;
 
-    @Generated(hash = 61090496)
-    public TimeData() {
-    }
 
-    @Generated(hash = 1203745979)
-    public TimeData(Long timeDataID, long playerID, long gameID, TimeType bestTimeType, TimeType avgTimeType,
-            int timesPlayed) {
-        this.timeDataID = timeDataID;
+    @Generated(hash = 1411090033)
+    public TimeData(Long timeDataId, long playerID, TimeType bestTimeType, TimeType avgTimeType, int timesPlayed) {
+        this.timeDataId = timeDataId;
         this.playerID = playerID;
-        this.gameID = gameID;
         this.bestTimeType = bestTimeType;
         this.avgTimeType = avgTimeType;
         this.timesPlayed = timesPlayed;
+    }
+
+    @Generated(hash = 61090496)
+    public TimeData() {
     }
 
     /**
@@ -103,10 +105,6 @@ public class TimeData {
         return playerID;
     }
 
-    long getGameID() {
-        return gameID;
-    }
-
     TimeType getBestTimeType() {
         return bestTimeType;
     }
@@ -127,10 +125,6 @@ public class TimeData {
         this.playerID = playerID;
     }
 
-    void setGameID(long gameID) {
-        this.gameID = gameID;
-    }
-
     void setTimesPlayed(int timesPlayed) {
         this.timesPlayed = timesPlayed;
     }
@@ -144,10 +138,18 @@ public class TimeData {
     }
 
     public Long getTimeDataID() {
-        return this.timeDataID;
+        return this.timeDataId;
     }
 
-    public void setTimeDataID(Long timeDataID) {
-        this.timeDataID = timeDataID;
+    public void setTimeDataID(Long timeDataId) {
+        this.timeDataId = timeDataId;
+    }
+
+    public Long getTimeDataId() {
+        return this.timeDataId;
+    }
+
+    public void setTimeDataId(Long timeDataId) {
+        this.timeDataId = timeDataId;
     }
 }

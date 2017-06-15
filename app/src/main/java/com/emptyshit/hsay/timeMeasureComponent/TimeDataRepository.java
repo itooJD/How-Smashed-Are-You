@@ -24,34 +24,18 @@ public class TimeDataRepository {
     /**
      * find the Time Data
      * @param playerId
-     * @param gameId
      * @return TimeData
      */
-    TimeData getTimeData(long playerId, long gameId){
-        this.queryBuilder = this.timeDataDao.queryBuilder().where(TimeDataDao.Properties.PlayerID.eq(playerId), TimeDataDao.Properties.GameID.eq(gameId));
-        List<TimeData> timeDataList = this.queryBuilder.list();
-        if(timeDataList.size() == 1){
-            return timeDataList.get(0);
-        } else {
-            return createTimeData(playerId, gameId);
+    TimeData findByPlayerId(long playerId){
+        this.queryBuilder = this.timeDataDao.queryBuilder().where(TimeDataDao.Properties.PlayerID.eq(playerId));
+        try {
+            List<TimeData> timeDataList = this.queryBuilder.list();
+            if (timeDataList.size() == 1) {
+                return timeDataList.get(0);
+            }
+        } catch(Exception e){
         }
-    }
-
-    /**
-     * Cr
-     * @param playerId
-     * @param gameId
-     * @return
-     */
-    private TimeData createTimeData(long playerId, long gameId){
-        TimeData timeData = new TimeData();
-        timeData.setPlayerID(playerId);
-        timeData.setGameID(gameId);
-        timeData.setTimesPlayed(0);
-        timeData.setBestTimeType(new TimeType(Long.MAX_VALUE));
-        timeData.setAvgTimeType(new TimeType(1));
-        saveTimeData(timeData);
-        return timeData;
+        return null;
     }
 
     /**
@@ -59,24 +43,33 @@ public class TimeDataRepository {
      * @param timeData
      * @return
      */
-    TimeData saveTimeData(TimeData timeData){
-        this.timeDataDao.save(timeData);
-        return timeData;
+    TimeData save(TimeData timeData){
+        try {
+            this.timeDataDao.insert(timeData);
+            return timeData;
+        } catch (Exception e){
+            e.printStackTrace();
+            return null;
+        }
     }
 
-    TimeData updateTimeData(TimeData timeData){
-        this.timeDataDao.update(timeData);
-        return timeData;
+    TimeData update(TimeData timeData){
+        try {
+            this.timeDataDao.update(timeData);
+            return timeData;
+        } catch (Exception e){
+            e.printStackTrace();
+        }
+        return null;
     }
 
     /**
      *
      * @param playerId
-     * @param gameId
      * @return
      */
-    int deleteTimeData(long playerId, long gameId) {
-        this.queryBuilder = this.timeDataDao.queryBuilder().where(TimeDataDao.Properties.PlayerID.eq(playerId), TimeDataDao.Properties.GameID.eq(gameId));
+    int deleteTimeData(long playerId) {
+        this.queryBuilder = this.timeDataDao.queryBuilder().where(TimeDataDao.Properties.PlayerID.eq(playerId));
         List<TimeData> timeDataList = this.queryBuilder.list();
         if (timeDataList.size() == 1) {
             timeDataDao.delete(timeDataList.get(0));

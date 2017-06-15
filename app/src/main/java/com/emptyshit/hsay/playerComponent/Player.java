@@ -7,27 +7,29 @@ import java.io.Serializable;
 import java.lang.Object;
 import org.greenrobot.greendao.annotation.*;
 
-
-import org.greenrobot.greendao.annotation.*;
-
-
 @Entity
-public class Player{
+public class Player implements Serializable{
 
     @Id
     @Generated
-    private Long playerID;
+    private Long playerId;
 
+    @Transient
+    private static final long serialVersionUID = 1L;
+
+    @Property
     private String playerName;
 
     @Convert(converter = EmailTypeConverter.class, columnType = String.class)
     private EmailType email;
 
+    @Property
     private String password;
 
-    @Generated(hash = 745898692)
-    public Player(Long playerID, String playerName, EmailType email, String password) {
-        this.playerID = playerID;
+    @Generated(hash = 1860436718)
+    public Player(Long playerId, String playerName, EmailType email,
+            String password) {
+        this.playerId = playerId;
         this.playerName = playerName;
         this.email = email;
         this.password = password;
@@ -37,8 +39,8 @@ public class Player{
     public Player() {
     }
 
-    void setPlayerID(Long playerID) {
-        this.playerID = playerID;
+    void setPlayerID(Long playerId) {
+        this.playerId = playerId;
     }
 
     String setPlayerName(String playername){
@@ -57,7 +59,7 @@ public class Player{
     }
 
     Long getPlayerID() {
-        return this.playerID;
+        return this.playerId;
     }
 
     String getPlayerName(){
@@ -82,7 +84,6 @@ public class Player{
         if (o == null || getClass() != o.getClass()) return false;
 
         Player player = (Player) o;
-
         if (!playerName.equals(player.playerName)) return false;
         if (!email.equals(player.email)) return false;
         return password.equals(player.password);
@@ -95,5 +96,13 @@ public class Player{
         result = 31 * result + email.hashCode();
         result = 31 * result + password.hashCode();
         return result;
+    }
+
+    public Long getPlayerId() {
+        return this.playerId;
+    }
+
+    public void setPlayerId(Long playerId) {
+        this.playerId = playerId;
     }
 }

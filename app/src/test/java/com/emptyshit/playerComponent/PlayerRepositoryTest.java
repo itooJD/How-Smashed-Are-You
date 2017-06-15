@@ -41,7 +41,7 @@ public class PlayerRepositoryTest {
         Database db = helper.getWritableDb();
         this.daoSession = new DaoMaster(db).newSession();
         this.playerRepository = new PlayerRepository(this.daoSession);
-        this.playerComponentInterface = new PlayerComponent(this.playerRepository);
+        this.playerComponentInterface = new PlayerComponent(this.playerRepository, this.context);
 
         this.john = new Player(new Long(1), "john", new EmailType("john@test.de"), "123456");
         this.doe = new Player(new Long(2), "doe", new EmailType("doe@test.de"), "123456");

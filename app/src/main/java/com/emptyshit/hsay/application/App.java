@@ -1,9 +1,10 @@
 package com.emptyshit.hsay.application;
 
 import android.app.Application;
-import android.content.Context;
 import android.database.sqlite.SQLiteDatabase;
 
+import com.emptyshit.hsay.lockComponent.LockComponent;
+import com.emptyshit.hsay.lockComponent.LockComponentInterface;
 import com.emptyshit.hsay.playerComponent.DaoMaster;
 import com.emptyshit.hsay.playerComponent.DaoSession;
 import com.emptyshit.hsay.playerComponent.PlayerComponent;
@@ -12,8 +13,6 @@ import com.emptyshit.hsay.playerComponent.PlayerRepository;
 import com.emptyshit.hsay.timeMeasureComponent.TimeDataRepository;
 import com.emptyshit.hsay.timeMeasureComponent.TimeMeasureComponent;
 import com.emptyshit.hsay.timeMeasureComponent.TimeMeasureComponentInterface;
-
-import org.greenrobot.greendao.database.Database;
 
 /**
  * App initializes the Application with all necessary dependencies
@@ -26,18 +25,25 @@ public class App extends Application{
     private static PlayerRepository playerRepository= null;
     private static TimeMeasureComponentInterface timeMeasureComponentInterface = null;
     private static TimeDataRepository timeDataRepository = null;
+    private static LockComponentInterface lockComponentInterface = null;
 
     @Override
     public void onCreate(){
         super.onCreate();
-        DaoMaster.DevOpenHelper helper = new DaoMaster.DevOpenHelper(this, "db");
+
+        //getApplicationContext().deleteDatabase("db");
+        //this.getApplicationContext().deleteFile("player");
+        //this.getApplicationContext().deleteFile("timeData");
+        //this.getApplicationContext().deleteFile("lock");
+        DaoMaster.DevOpenHelper helper = new DaoMaster.DevOpenHelper(getApplicationContext(), "db");
         SQLiteDatabase db = helper.getWritableDatabase();
         daoSession = new DaoMaster(db).newSession();
 
         playerRepository = new PlayerRepository(daoSession);
-        playerComponentInterface = new PlayerComponent(playerRepository);
+        playerComponentInterface = new PlayerComponent(playerRepository, getApplicationContext());
         timeDataRepository = new TimeDataRepository(daoSession);
-        timeMeasureComponentInterface = new TimeMeasureComponent(playerComponentInterface, timeDataRepository);
+        timeMeasureComponentInterface = new TimeMeasureComponent(playerComponentInterface, timeDataRepository, getApplicationContext());
+        lockComponentInterface = new LockComponent(getApplicationContext());
     }
 
     public static PlayerComponentInterface getPlayerComponentInterface(){
@@ -46,5 +52,9 @@ public class App extends Application{
 
     public static TimeMeasureComponentInterface getTimeMeasureComponentInterface(){
         return timeMeasureComponentInterface;
+    }
+
+    public static LockComponentInterface getLockComponentInterface(){
+        return lockComponentInterface;
     }
 }

@@ -48,7 +48,7 @@ public class PlayerRepository{
 	Player findPlayerByName(String username) {
 		this.queryBuilder = this.playerDao.queryBuilder().where(PlayerDao.Properties.PlayerName.eq(username));
 		List<Player> playerList = this.queryBuilder.list();
-		if(playerList.size() == 1){
+		if (playerList.size() == 1) {
 			return playerList.get(0);
 		}
 		return null;
@@ -56,6 +56,7 @@ public class PlayerRepository{
 
 	Player findPlayerByEmail(String email) {
 		queryBuilder = this.playerDao.queryBuilder().where(PlayerDao.Properties.Email.eq(new EmailType(email)));
+
 		List<Player> playerList = this.queryBuilder.list();
 		if(playerList.size() == 1){
 			return playerList.get(0);

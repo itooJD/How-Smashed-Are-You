@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context="com.emptyshit.hsay.frontsPlayer.WindowLogIn">
+    tools:context="com.emptyshit.hsay.front.player.WindowLogIn">
 
     <ImageView
         android:id="@+id/logInBackGroundImageView"
@@ -13,14 +13,11 @@
         app:srcCompat="@drawable/background_sign_in"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintBottom_toBottomOf="@+id/logInToRegisterTextView"
         app:layout_constraintLeft_toLeftOf="parent"
         android:layout_marginTop="0dp"
         android:layout_marginRight="0dp"
-        android:layout_marginBottom="0dp"
         android:layout_marginLeft="0dp"
-        app:layout_constraintHorizontal_bias="0.0"
-        app:layout_constraintVertical_bias="0.0" />
+        app:layout_constraintHorizontal_bias="0.0" />
 
     <TextView
         android:id="@+id/logInUserNameTextView"
@@ -42,17 +39,17 @@
         android:id="@+id/logInUserNameEditText"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_marginBottom="50dp"
+        android:layout_marginLeft="8dp"
+        android:layout_marginRight="8dp"
+        android:layout_marginTop="50dp"
         android:ems="10"
+        android:hint="Username"
         android:inputType="textPersonName"
-        android:text="Name"
-        app:layout_constraintTop_toBottomOf="@+id/logInUserNameTextView"
-        app:layout_constraintRight_toRightOf="parent"
         app:layout_constraintBottom_toTopOf="@+id/logInPasswordTextView"
         app:layout_constraintLeft_toLeftOf="parent"
-        android:layout_marginTop="50dp"
-        android:layout_marginBottom="50dp"
-        android:layout_marginRight="8dp"
-        android:layout_marginLeft="8dp" />
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/logInUserNameTextView" />
 
     <TextView
         android:id="@+id/logInPasswordTextView"
@@ -74,16 +71,17 @@
         android:id="@+id/logInPasswordEditText"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_marginBottom="20dp"
+        android:layout_marginLeft="8dp"
+        android:layout_marginRight="8dp"
+        android:layout_marginTop="50dp"
         android:ems="10"
+        android:hint="Password"
         android:inputType="textPassword"
-        app:layout_constraintTop_toBottomOf="@+id/logInPasswordTextView"
-        app:layout_constraintRight_toRightOf="parent"
         app:layout_constraintBottom_toTopOf="@+id/logInConfirmButton"
         app:layout_constraintLeft_toLeftOf="parent"
-        android:layout_marginTop="50dp"
-        android:layout_marginBottom="20dp"
-        android:layout_marginRight="8dp"
-        android:layout_marginLeft="8dp" />
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/logInPasswordTextView" />
 
     <Button
         android:id="@+id/logInConfirmButton"
@@ -92,27 +90,13 @@
         android:text="Confirm"
         app:layout_constraintTop_toBottomOf="@+id/logInPasswordEditText"
         app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintBottom_toTopOf="@+id/logInToRegisterTextView"
         app:layout_constraintLeft_toLeftOf="parent"
-        android:layout_marginTop="20dp"
-        android:layout_marginBottom="100dp"
+        android:layout_marginTop="21dp"
         android:layout_marginRight="8dp"
-        android:layout_marginLeft="8dp" />
-
-    <TextView
-        android:id="@+id/logInToRegisterTextView"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:textColor="#0000FF"
-        android:text="Registrieren"
-        app:layout_constraintTop_toBottomOf="@+id/logInConfirmButton"
-        app:layout_constraintRight_toRightOf="parent"
+        android:layout_marginLeft="8dp"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintLeft_toLeftOf="parent"
-        android:layout_marginTop="100dp"
-        android:layout_marginBottom="100dp"
-        android:layout_marginRight="8dp"
-        android:layout_marginLeft="8dp" />
+        app:layout_constraintHorizontal_bias="0.498"
+        android:layout_marginBottom="8dp" />
 
 
 </android.support.constraint.ConstraintLayout>

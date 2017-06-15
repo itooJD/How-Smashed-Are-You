@@ -1,9 +1,13 @@
 package com.emptyshit.hsay.dataTypes;
 
+import java.io.Serializable;
+
 /**
  * Representation of the Time
  */
-public class TimeType {
+public class TimeType implements Serializable{
+
+    private static final long serialVersionUID = 3L;
 
     private double milliseconds;
 

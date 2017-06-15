@@ -1,11 +1,14 @@
 package com.emptyshit.hsay.dataTypes;
 
 import java.util.regex.Pattern;
+import java.io.Serializable;
 
 /**
  * Representation of the Email
  */
-public class EmailType {
+public class EmailType implements Serializable{
+
+    private static final long serialVersionUID = 2L;
     //Reg Ex
     private static final String EMAIL_PATTERN = "^[\\w!#$%&’*+/=?`{|}~^-]+(?:\\.[\\w!#$%&’*+/=?`{|}~^-]+)*@(?:[a-zA-Z0-9-]+\\.)+[a-zA-Z]{1,6}$";
 
