@@ -10,9 +10,8 @@
     <application
         android:name=".application.App"
         android:allowBackup="true"
-        android:icon="@mipmap/ic_launcher"
+        android:icon="@mipmap/ic_how_smashed_are_you"
         android:label="How Smashed Are You"
-        android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
         <activity
@@ -30,7 +29,9 @@
         <activity android:name=".front.navigation.WindowGateWay" />
         <activity android:name=".front.lock.WindowLock" />
         <activity android:name=".front.games.WindowGame" />
-        <activity android:name=".front.games.WindowShowTime"></activity>
+        <activity android:name=".front.games.WindowShowTime" />
+        <activity android:name=".front.fake.WindowFakeWhatsapp" />
+        <activity android:name=".front.fake.WindowFakeWhatsappAccess"></activity>
     </application>
 
 </manifest>

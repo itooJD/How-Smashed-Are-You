@@ -2,6 +2,9 @@ package com.emptyshit.hsay.application;
 
 import android.app.Application;
 import android.database.sqlite.SQLiteDatabase;
+
+import com.emptyshit.hsay.lockComponent.LockComponent;
+import com.emptyshit.hsay.lockComponent.LockComponentInterface;
 import com.emptyshit.hsay.playerComponent.DaoMaster;
 import com.emptyshit.hsay.playerComponent.DaoSession;
 import com.emptyshit.hsay.playerComponent.PlayerComponent;
@@ -22,14 +25,16 @@ public class App extends Application{
     private static PlayerRepository playerRepository= null;
     private static TimeMeasureComponentInterface timeMeasureComponentInterface = null;
     private static TimeDataRepository timeDataRepository = null;
+    private static LockComponentInterface lockComponentInterface = null;
 
     @Override
     public void onCreate(){
         super.onCreate();
 
-        getApplicationContext().deleteDatabase("db");
-        this.getApplicationContext().deleteFile("player");
-        this.getApplicationContext().deleteFile("timeData");
+        //getApplicationContext().deleteDatabase("db");
+        //this.getApplicationContext().deleteFile("player");
+        //this.getApplicationContext().deleteFile("timeData");
+        //this.getApplicationContext().deleteFile("lock");
         DaoMaster.DevOpenHelper helper = new DaoMaster.DevOpenHelper(getApplicationContext(), "db");
         SQLiteDatabase db = helper.getWritableDatabase();
         daoSession = new DaoMaster(db).newSession();
@@ -38,6 +43,7 @@ public class App extends Application{
         playerComponentInterface = new PlayerComponent(playerRepository, getApplicationContext());
         timeDataRepository = new TimeDataRepository(daoSession);
         timeMeasureComponentInterface = new TimeMeasureComponent(playerComponentInterface, timeDataRepository, getApplicationContext());
+        lockComponentInterface = new LockComponent(getApplicationContext());
     }
 
     public static PlayerComponentInterface getPlayerComponentInterface(){
@@ -46,5 +52,9 @@ public class App extends Application{
 
     public static TimeMeasureComponentInterface getTimeMeasureComponentInterface(){
         return timeMeasureComponentInterface;
+    }
+
+    public static LockComponentInterface getLockComponentInterface(){
+        return lockComponentInterface;
     }
 }

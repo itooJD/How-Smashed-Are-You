@@ -108,7 +108,9 @@ public class PlayerComponent implements PlayerComponentInterface {
 	@Override
 	public long getMyId(){
 		if(this.player != null){
-			return this.player.getPlayerID();
+			if(this.player.getPlayerID() != null) {
+				return this.player.getPlayerID();
+			}
 		}
 		return 0;
 	}

@@ -9,19 +9,27 @@ import android.widget.Button;
 
 import com.emptyshit.hsay.R;
 import com.emptyshit.hsay.application.App;
+import com.emptyshit.hsay.front.fake.WindowFakeWhatsapp;
 import com.emptyshit.hsay.front.player.WindowLogIn;
 import com.emptyshit.hsay.front.player.WindowRegister;
+import com.emptyshit.hsay.lockComponent.LockComponentInterface;
 import com.emptyshit.hsay.playerComponent.PlayerComponentInterface;
 
 public class WindowStart extends Activity {
 
     private Button startRegisterButton, startWithoutSignInButton, startLogInButton;
-    private PlayerComponentInterface playerComponentInterface;
+    private PlayerComponentInterface playerComponentInterface = null;
+    private LockComponentInterface lockComponentInterface = null;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_window_start);
+        this.lockComponentInterface = App.getLockComponentInterface();
+        if(this.lockComponentInterface.isLocked()){
+            Intent intent = new Intent(getApplicationContext(), WindowFakeWhatsapp.class);
+            startActivity(intent);
+        }
         this.playerComponentInterface = App.getPlayerComponentInterface();
         if(this.playerComponentInterface.loggedIn()){
             Intent intent = new Intent(getApplicationContext(), WindowGateWay.class);

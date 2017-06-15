@@ -6,4 +6,6 @@ package com.emptyshit.hsay.front.games;
 
 public interface FragmentCommunication {
     void stopChronometer();
+
+    void unLock();
 }

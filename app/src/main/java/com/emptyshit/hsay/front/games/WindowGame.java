@@ -7,10 +7,14 @@ import android.content.Intent;
 import android.os.Bundle;
 
 import com.emptyshit.hsay.R;
+import com.emptyshit.hsay.application.App;
+import com.emptyshit.hsay.front.fake.WindowFakeWhatsappAccess;
+import com.emptyshit.hsay.lockComponent.LockComponentInterface;
 
 public class WindowGame extends Activity implements FragmentCommunication{
     private FragmentClock fragmentClock;
     private FragmentEnterWordGame fragmentEnterWordGame;
+    private LockComponentInterface lockComponentInterface;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -19,6 +23,7 @@ public class WindowGame extends Activity implements FragmentCommunication{
 
         this.fragmentClock = new FragmentClock();
         this.fragmentEnterWordGame = new FragmentEnterWordGame();
+        this.lockComponentInterface = App.getLockComponentInterface();
 
         FragmentManager fragmentManager = getFragmentManager();
         FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
@@ -30,7 +35,17 @@ public class WindowGame extends Activity implements FragmentCommunication{
     @Override
     public void stopChronometer() {
         this.fragmentClock.stopChronometer();
-        Intent intent = new Intent(getApplicationContext(),WindowShowTime.class);
-        startActivity(intent);
+    }
+
+    @Override
+    public void unLock(){
+        if(this.lockComponentInterface.isLocked()){
+            this.lockComponentInterface.unLock();
+            Intent intent = new Intent(getApplicationContext(),WindowFakeWhatsappAccess.class);
+            startActivity(intent);
+        } else {
+            Intent intent = new Intent(getApplicationContext(), WindowShowTime.class);
+            startActivity(intent);
+        }
     }
 }

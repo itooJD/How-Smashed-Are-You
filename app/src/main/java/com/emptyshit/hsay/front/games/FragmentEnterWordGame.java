@@ -53,6 +53,7 @@ public class FragmentEnterWordGame extends Fragment {
                     enterWordGameRightOrWrongTextView.setText("Right");
                     enterWordGameRightOrWrongTextView.setTextColor(Color.GREEN);
                     fragmentCommunication.stopChronometer();
+                    fragmentCommunication.unLock();
                 } else{
                     enterWordGameRightOrWrongTextView.setText("Wrong");
                     enterWordGameRightOrWrongTextView.setTextColor(Color.RED);
