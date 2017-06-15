@@ -8,7 +8,7 @@ import java.util.Random;
 
 public class EnterWordGame {
 
-    private String[] wordsList = {"OpenGL", "ZEUS"};
+    private String[] wordsList = {"OpenGL", "ZEUS","riessig","WINZIG"};
     private String word;
 
     public EnterWordGame(){

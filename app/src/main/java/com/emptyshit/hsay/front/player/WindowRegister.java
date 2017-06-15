@@ -1,8 +1,8 @@
-package com.emptyshit.hsay.frontsPlayer;
+package com.emptyshit.hsay.front.player;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.support.v7.app.AppCompatActivity;
+import android.app.Activity;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -11,9 +11,10 @@ import android.widget.TextView;
 import com.emptyshit.hsay.R;
 
 import com.emptyshit.hsay.application.App;
+import com.emptyshit.hsay.front.navigation.WindowGateWay;
 import com.emptyshit.hsay.playerComponent.PlayerComponentInterface;
 
-public class WindowRegister extends AppCompatActivity {
+public class WindowRegister extends Activity {
 
     private TextView registerUsernameTextView, registerEmailTextView, registerPasswordTextView, registerConfirmPasswordTextView;
     private EditText registerUsernameEditText, registerEmailEditText, registerPasswordEditText, registerConfirmPasswordEditText;
@@ -48,54 +49,19 @@ public class WindowRegister extends AppCompatActivity {
                 String confirmPassword = registerConfirmPasswordEditText.getText().toString();
 
                 if(playerComponentInterface != null && playerComponentInterface.register(username, email, password, confirmPassword) == true) {
-                    Intent intent = new Intent(WindowRegister.this, WindowPlayerProfile.class);
+                    Intent intent = new Intent(getApplicationContext(), WindowGateWay.class);
                     startActivity(intent);
                 }
             }
         });
     }
 
-    /*private void setupFocusChangeListener() {
-        this.registerUsernameEditText.setOnFocusChangeListener(new View.OnFocusChangeListener() {
-            @Override
-            public void onFocusChange(View v, boolean hasFocus) {
-                playerComponentInterface.checkUsername().getText().toString();
-                ok.setOnClickListener(okListener);
-                //playerComponentInterface.Integer.parseInt(checkUsername().getText().toString());// checkUsername Method
-            }
-        });
-
-        this.registerEmailEditText.setOnFocusChangeListener(new View.OnFocusChangeListener() {
-            @Override
-            public void onFocusChange(View v, boolean hasFocus) {
-                playerComponentInterface.checkEmail().getText().toString();// checkEmail Method
-            }
-        });
-
-        this.registerPasswordEditText.setOnFocusChangeListener(new View.OnFocusChangeListener() {
-            @Override
-            public void onFocusChange(View v, boolean hasFocus) {
-                playerComponentInterface.checkPassword().getText().toString();// check Password
-            }
-        });
-
-        this.registerConfirmPasswordEditText.setOnFocusChangeListener(new View.OnFocusChangeListener() {
-            @Override
-            public void onFocusChange(View v, boolean hasFocus) {
-                playerComponentInterface.checkConfiPassword().getText().toString();// check Password
-            }
-        });
-    }
-
-    private View.OnClickListener okListener = new View.OnClickListener()
-    {
-        public void onClick(View v)
-        {
-            //sendSMS("9960510915",username);
-            Toast.makeText(getBaseContext(),"Alright", Toast.LENGTH_SHORT).show();
-
+    @Override
+    protected void onResume() {
+        super.onResume();
+        if(this.playerComponentInterface.loggedIn()){
+            Intent intent = new Intent(getApplicationContext(), WindowGateWay.class);
+            startActivity(intent);
         }
-
-    };*/
-
+    }
 }

@@ -38,7 +38,7 @@ public class PlayerComponentTest {
         daoSession = new DaoMaster(db).newSession();
         
         playerRepository = new PlayerRepository(daoSession);
-        playerComponentInterface = new PlayerComponent(this.playerRepository);
+        playerComponentInterface = new PlayerComponent(this.playerRepository, this.context);
 
         playerComponentInterface.register(this.johnnyName, this.johnnyEmail, this.johnnyPassword, this.johnnyPassword);
     }
@@ -78,5 +78,13 @@ public class PlayerComponentTest {
     @Test
     public void  getEmailTest(){
         assertEquals("",new EmailType(this.johnnyEmail), playerComponentInterface.getMyEmail());
+    }
+
+    @Test
+    public void loggedInTest(){
+        assertEquals("",true, this.playerComponentInterface.loggedIn());
+        this.playerComponentInterface.delete();
+        this.playerComponentInterface.withoutRegister();
+        assertEquals("",false, this.playerComponentInterface.loggedIn());
     }
 }

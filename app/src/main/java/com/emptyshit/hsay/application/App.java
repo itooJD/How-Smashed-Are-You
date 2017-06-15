@@ -1,9 +1,7 @@
 package com.emptyshit.hsay.application;
 
 import android.app.Application;
-import android.content.Context;
 import android.database.sqlite.SQLiteDatabase;
-
 import com.emptyshit.hsay.playerComponent.DaoMaster;
 import com.emptyshit.hsay.playerComponent.DaoSession;
 import com.emptyshit.hsay.playerComponent.PlayerComponent;
@@ -12,8 +10,6 @@ import com.emptyshit.hsay.playerComponent.PlayerRepository;
 import com.emptyshit.hsay.timeMeasureComponent.TimeDataRepository;
 import com.emptyshit.hsay.timeMeasureComponent.TimeMeasureComponent;
 import com.emptyshit.hsay.timeMeasureComponent.TimeMeasureComponentInterface;
-
-import org.greenrobot.greendao.database.Database;
 
 /**
  * App initializes the Application with all necessary dependencies
@@ -30,14 +26,18 @@ public class App extends Application{
     @Override
     public void onCreate(){
         super.onCreate();
-        DaoMaster.DevOpenHelper helper = new DaoMaster.DevOpenHelper(this, "db");
+
+        getApplicationContext().deleteDatabase("db");
+        this.getApplicationContext().deleteFile("player");
+        this.getApplicationContext().deleteFile("timeData");
+        DaoMaster.DevOpenHelper helper = new DaoMaster.DevOpenHelper(getApplicationContext(), "db");
         SQLiteDatabase db = helper.getWritableDatabase();
         daoSession = new DaoMaster(db).newSession();
 
         playerRepository = new PlayerRepository(daoSession);
-        playerComponentInterface = new PlayerComponent(playerRepository);
+        playerComponentInterface = new PlayerComponent(playerRepository, getApplicationContext());
         timeDataRepository = new TimeDataRepository(daoSession);
-        timeMeasureComponentInterface = new TimeMeasureComponent(playerComponentInterface, timeDataRepository);
+        timeMeasureComponentInterface = new TimeMeasureComponent(playerComponentInterface, timeDataRepository, getApplicationContext());
     }
 
     public static PlayerComponentInterface getPlayerComponentInterface(){

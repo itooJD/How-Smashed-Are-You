@@ -10,10 +10,9 @@ public interface TimeMeasureComponentInterface {
 
     /**
      * starting the local chronograph
-     * @param gameId
      * @return code(0 = chronograph stopped, 1 = chronograph running)
      */
-    TimeData addTime(long milliseconds, long gameId);
+    boolean addTime(long milliseconds);
 
     /**
      *
@@ -23,28 +22,26 @@ public interface TimeMeasureComponentInterface {
 
     /**
      *
-     * @param gameId
+
      * @return
      */
-    TimeType getMyBestTimeOfGame(int gameId);
+    TimeType getMyBestTimeOfGame();
 
     /**
      *
      */
-    TimeType getMyAvgTimeOfGame(int gameId);
+    TimeType getMyAvgTimeOfGame();
 
     /**
      *
-     * @param gameId
-     * @param playerId
-     * @return
      */
-    TimeType[] getAllTimeOfGame(int gameId, int playerId);
+    TimeType[] getAllTimeOfGame();
 
     /**
      *
-     * @param gameId
      * @return
      */
-    TimeType[] getBestOfGame(int gameId);
+    int getTimesPlayed();
+
+    boolean alreadyPlayed();
 }

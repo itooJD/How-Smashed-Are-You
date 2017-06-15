@@ -4,32 +4,35 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context="com.emptyshit.hsay.frontsPlayer.WindowStart">
+    tools:context="com.emptyshit.hsay.front.navigation.WindowStart">
 
     <ImageView
-        android:id="@+id/startWindowBackGround"
+        android:id="@+id/startBackGround"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:src="@drawable/background_start" />
 
     <Button
-        android:id="@+id/startWindowRegisterButton"
+        android:id="@+id/startRegisterButton"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginLeft="8dp"
         android:layout_marginRight="8dp"
-        android:layout_marginTop="150dp"
+        android:layout_marginTop="8dp"
         android:text="Registrieren"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/startWindowPlayWithoutSignIn"
+        app:layout_constraintTop_toBottomOf="@+id/startLogInButton"
         app:layout_constraintVertical_chainStyle="packed"
         tools:layout_constraintBottom_creator="1"
         tools:layout_constraintLeft_creator="1"
-        tools:layout_constraintRight_creator="1" />
+        tools:layout_constraintRight_creator="1"
+        app:layout_constraintBottom_toBottomOf="parent"
+        android:layout_marginBottom="8dp"
+        app:layout_constraintVertical_bias="0.214" />
 
     <Button
-        android:id="@+id/startWindowPlayWithoutSignIn"
+        android:id="@+id/startPlaySignInButton"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="Ohne Anmeldung weiter"
@@ -40,9 +43,29 @@
         tools:layout_constraintBottom_creator="1"
         tools:layout_constraintLeft_creator="1"
         app:layout_constraintTop_toTopOf="parent"
-        android:layout_marginTop="150dp"
+        android:layout_marginTop="8dp"
         app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintLeft_toLeftOf="parent" />
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintHorizontal_bias="0.498"
+        app:layout_constraintBottom_toBottomOf="parent"
+        android:layout_marginBottom="8dp"
+        app:layout_constraintVertical_bias="0.328" />
+
+    <Button
+        android:id="@+id/startLogInButton"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="8dp"
+        android:layout_marginLeft="8dp"
+        android:layout_marginRight="8dp"
+        android:layout_marginTop="8dp"
+        android:text="Log In"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintHorizontal_bias="0.498"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/startPlaySignInButton"
+        app:layout_constraintVertical_bias="0.263" />
 
 </android.support.constraint.ConstraintLayout>
 

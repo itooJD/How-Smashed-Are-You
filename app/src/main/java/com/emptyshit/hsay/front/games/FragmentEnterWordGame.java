@@ -1,9 +1,12 @@
-package com.emptyshit.hsay.frontsGames;
+package com.emptyshit.hsay.front.games;
 
+import android.app.Activity;
 import android.graphics.Color;
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.app.Fragment;
+import android.view.LayoutInflater;
 import android.view.View;
+import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
@@ -11,27 +14,34 @@ import android.widget.TextView;
 import com.emptyshit.hsay.R;
 import com.emptyshit.hsay.gameComponent.EnterWordGame;
 
-public class WindowEnterWordGame extends AppCompatActivity {
+public class FragmentEnterWordGame extends Fragment {
 
-    //TODO
     private EnterWordGame enterWordGame = new EnterWordGame();
 
     private Button enterWordGameConfirmButton;
     private TextView enterWordGameGivenTextTextView, enterWordGameRightOrWrongTextView;
     private EditText enterWordGameTextInputEditText;
+    private FragmentCommunication fragmentCommunication;
 
     @Override
-    protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_window_enter_word_game);
-
-        this.enterWordGameConfirmButton = (Button) findViewById(R.id.enterWordGameConfirmButton);
-        this.enterWordGameGivenTextTextView = (TextView) findViewById(R.id.enterWordGameGivenTextTextView);
-        this.enterWordGameRightOrWrongTextView = (TextView) findViewById(R.id.enterWordGameRightOrWrongTextView);
-        this.enterWordGameTextInputEditText = (EditText) findViewById(R.id.enterWordGameTextInputEditText);
+    public View onCreateView(LayoutInflater inflater, ViewGroup container,
+                             Bundle savedInstanceState) {
+        View enterWordGameView = inflater.inflate(R.layout.fragment_enter_word_game, container,false);
+        this.enterWordGameConfirmButton = (Button) enterWordGameView.findViewById(R.id.enterWordGameConfirmButton);
+        this.enterWordGameGivenTextTextView = (TextView) enterWordGameView.findViewById(R.id.enterWordGameGivenTextTextView);
+        this.enterWordGameRightOrWrongTextView = (TextView) enterWordGameView.findViewById(R.id.enterWordGameRightOrWrongTextView);
+        this.enterWordGameTextInputEditText = (EditText) enterWordGameView.findViewById(R.id.enterWordGameTextInputEditText);
 
         this.enterWordGameGivenTextTextView.setText(this.enterWordGame.wordToTypeIn());
         setupClickListener();
+
+        return enterWordGameView;
+    }
+
+    @Override
+    public void onAttach(Activity activity) {
+        super.onAttach(activity);
+        this.fragmentCommunication = (FragmentCommunication) getActivity();
     }
 
     private void setupClickListener(){
@@ -42,6 +52,7 @@ public class WindowEnterWordGame extends AppCompatActivity {
                 if(enterWordGame.compareWords(enterWordGameTextInputEditText.getText().toString())){
                     enterWordGameRightOrWrongTextView.setText("Right");
                     enterWordGameRightOrWrongTextView.setTextColor(Color.GREEN);
+                    fragmentCommunication.stopChronometer();
                 } else{
                     enterWordGameRightOrWrongTextView.setText("Wrong");
                     enterWordGameRightOrWrongTextView.setTextColor(Color.RED);

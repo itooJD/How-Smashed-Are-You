@@ -1,5 +1,8 @@
 package com.emptyshit.hsay.playerComponent;
 
+import android.content.Context;
+import android.net.wifi.WifiConfiguration;
+
 import com.emptyshit.hsay.dataTypes.EmailType;
 
 import java.io.File;
@@ -17,8 +20,12 @@ public class PlayerComponent implements PlayerComponentInterface {
 
 	private Player player;
 
-	public PlayerComponent(PlayerRepository playerRepository){
+	private String fileName = "player";
+	private Context context = null;
+
+	public PlayerComponent(PlayerRepository playerRepository, Context context){
 		this.playerRepository = playerRepository;
+		this.context = context;
 	}
 
 	@Override
@@ -27,6 +34,9 @@ public class PlayerComponent implements PlayerComponentInterface {
 				|| checkValidString(passwordConfirm))) {
 			return false;
 		}
+
+		//TODO
+		//check for Duobles
 		if (password.equals(passwordConfirm)) {
 			EmailType email;
 			try {
@@ -38,8 +48,8 @@ public class PlayerComponent implements PlayerComponentInterface {
 			player.setPlayerName(playername);
 			player.setEmail(email);
 			player.setPassword(password);
-			saveLocalPlayer(player);
 			this.playerRepository.save(player);
+			saveLocalPlayer(player);
 			return true;
 		} else {
 			return false;
@@ -50,7 +60,10 @@ public class PlayerComponent implements PlayerComponentInterface {
 	public boolean withoutRegister() {
 		Player player = loadLocalPlayer();
 		if(player == null){
-			saveLocalPlayer(new Player());
+			player = new Player();
+			saveLocalPlayer(player);
+			playerRepository.save(player);
+			playerRepository.delete(player.getPlayerID());
 			return true;
 		}
 		return false;
@@ -69,11 +82,13 @@ public class PlayerComponent implements PlayerComponentInterface {
 
 	@Override
 	public boolean loggedIn(){
-		return this.player != null;
+		this.loadLocalPlayer();
+		return this.player != null && !(this.player.getPlayerName() == null || this.player.getPassword() == null || this.player.getEmail() == null);
 	}
 
 	@Override
 	public boolean logout(){
+		this.context.deleteFile(this.fileName);
 		this.player = null;
 		return this.player == null;
 	}
@@ -162,14 +177,41 @@ public class PlayerComponent implements PlayerComponentInterface {
 
 	private boolean saveLocalPlayer(Player player){
 		this.player = player;
+		try{
+			FileOutputStream fileOutputStream = this.context.openFileOutput(this.fileName, Context.MODE_PRIVATE);
+			ObjectOutputStream objectOutputStream = new ObjectOutputStream(fileOutputStream);
+			objectOutputStream.writeObject(this.player);
+			fileOutputStream.close();
+			objectOutputStream.close();
+		} catch (FileNotFoundException e) {
+			e.printStackTrace();
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
 		return this.player != null;
 	}
 
+
 	private Player loadLocalPlayer(){
+		try {
+			FileInputStream fileInputStream = this.context.openFileInput(this.fileName);
+			ObjectInputStream objectInputStream = new ObjectInputStream(fileInputStream);
+			Player player = (Player) objectInputStream.readObject();
+			fileInputStream.close();
+			objectInputStream.close();
+			this.player = player;
+		} catch (FileNotFoundException e) {
+			e.printStackTrace();
+		} catch (IOException e) {
+			e.printStackTrace();
+		} catch (ClassNotFoundException e) {
+			e.printStackTrace();
+		}
 		return this.player;
 	}
 
 	private boolean deleteLocalPlayer(){
+		this.context.deleteFile(this.fileName);
 		this.player = null;
 		return this.player == null;
 	}

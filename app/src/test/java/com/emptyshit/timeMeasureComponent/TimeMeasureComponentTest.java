@@ -40,9 +40,9 @@ public class TimeMeasureComponentTest {
         Database db = helper.getWritableDb();
         daoSession = new DaoMaster(db).newSession();
         playerRepository = new PlayerRepository(daoSession);
-        playerComponentInterface = new PlayerComponent(playerRepository);
+        playerComponentInterface = new PlayerComponent(playerRepository, this.context);
         timeDataRepository = new TimeDataRepository(daoSession);
-        timeMeasureComponentInterface = new TimeMeasureComponent(playerComponentInterface, timeDataRepository);
+        timeMeasureComponentInterface = new TimeMeasureComponent(playerComponentInterface, timeDataRepository, this.context);
     }
 
     @After
@@ -52,7 +52,8 @@ public class TimeMeasureComponentTest {
 
     @Test
     public void addTimeTest(){
-        assertEquals("start of the Chronograph", 1, timeMeasureComponentInterface.addTime(0,0));
+        assertEquals("trying to add time = 0", false, timeMeasureComponentInterface.addTime(0));
+        assertEquals("trying to add time > 0", true, timeMeasureComponentInterface.addTime(1));
     }
 
     @Test
@@ -60,31 +61,21 @@ public class TimeMeasureComponentTest {
         Random rand = new Random();
         TimeType bestTime = new TimeType(Long.MAX_VALUE);
         for(int i = 0; i < 10; i++) {
-            timeMeasureComponentInterface.addTime(rand.nextInt(1000),0);
+            timeMeasureComponentInterface.addTime(rand.nextInt(1000));
             if (!bestTime.isSmallerThan(timeMeasureComponentInterface.getStoppedTime())) {
                 bestTime = timeMeasureComponentInterface.getStoppedTime();
             }
         }
-        assertEquals("beste zeit ist", bestTime, timeMeasureComponentInterface.getMyBestTimeOfGame(0));
+        assertEquals("beste zeit ist", bestTime, timeMeasureComponentInterface.getMyBestTimeOfGame());
     }
 
     @Test
     public void getMyAvgTimeOfGameTest(){
         double collector = 0.0;
         for(int i = 1; i < 11; i++) {
-            timeMeasureComponentInterface.addTime(i,0);
+            timeMeasureComponentInterface.addTime(i);
             collector += timeMeasureComponentInterface.getStoppedTime().getMilliseconds();
         }
-        assertEquals("avg zeit ist", new TimeType(collector / 10), timeMeasureComponentInterface.getMyAvgTimeOfGame(0));
-    }
-
-    @Test
-    public void getAllTimeOfGameTest(){
-
-    }
-
-    @Test
-    public void getBestOfGameTest(){
-
+        assertEquals("avg zeit ist", new TimeType(collector / 10), timeMeasureComponentInterface.getMyAvgTimeOfGame());
     }
 }
