@@ -32,9 +32,11 @@ public class TimeData implements Serializable{
     private long playerID;
 
     @Convert(converter = TimeTypeConverter.class, columnType = Double.class)
+    @Property
     private TimeType bestTimeType = null;
 
     @Convert(converter = TimeTypeConverter.class, columnType = Double.class)
+    @Property
     private TimeType avgTimeType = null;
 
     // TimeType eine eigene Entität?

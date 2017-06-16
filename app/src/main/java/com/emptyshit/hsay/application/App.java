@@ -31,10 +31,12 @@ public class App extends Application{
     public void onCreate(){
         super.onCreate();
 
-        //getApplicationContext().deleteDatabase("db");
-        //this.getApplicationContext().deleteFile("player");
-        //this.getApplicationContext().deleteFile("timeData");
-        //this.getApplicationContext().deleteFile("lock");
+        /*
+        getApplicationContext().deleteDatabase("db");
+        this.getApplicationContext().deleteFile("player");
+        this.getApplicationContext().deleteFile("timeData");
+        this.getApplicationContext().deleteFile("lock");
+        */
         DaoMaster.DevOpenHelper helper = new DaoMaster.DevOpenHelper(getApplicationContext(), "db");
         SQLiteDatabase db = helper.getWritableDatabase();
         daoSession = new DaoMaster(db).newSession();

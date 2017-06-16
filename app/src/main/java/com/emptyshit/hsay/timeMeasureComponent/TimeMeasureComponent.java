@@ -50,10 +50,16 @@ public class TimeMeasureComponent implements TimeMeasureComponentInterface {
     }
 
     @Override
+    public boolean checkExistenceOfTimeData() {
+        return loadLocalTimeOfGame() != null;
+    }
+
+    @Override
     public boolean addTime(long milliseconds){
         if(milliseconds > 0) {
             this.stoppedTime = new TimeType(milliseconds);
             try {
+                this.loadLocalTimeOfGame();
                 this.myTime.addNewTime(this.stoppedTime);
             } catch (Exception e){
                 this.createTimeData(this.playerComponentInterface.getMyId());
@@ -97,6 +103,7 @@ public class TimeMeasureComponent implements TimeMeasureComponentInterface {
 
     @Override
     public boolean alreadyPlayed() {
+        loadLocalTimeOfGame();
         return this.myTime != null && this.myTime.getTimesPlayed() != 0;
     }
 

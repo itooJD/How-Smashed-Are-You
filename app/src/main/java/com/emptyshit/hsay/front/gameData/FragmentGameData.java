@@ -27,9 +27,10 @@ public class FragmentGameData extends Fragment {
         View fragmentGameData = inflater.inflate(R.layout.fragment_game_data, container, false);
 
         this.timeMeasureComponentInterface = App.getTimeMeasureComponentInterface();
+        this.timeMeasureComponentInterface.checkExistenceOfTimeData();
 
         this.gameDataBestTimeTextView = (TextView) fragmentGameData.findViewById(R.id.gameDataBestTimeTextView);
-        this.gameDataAvgTimeTextView = (TextView) fragmentGameData.findViewById(R.id.gameDataBestTimeTextView);
+        this.gameDataAvgTimeTextView = (TextView) fragmentGameData.findViewById(R.id.gameDataAvgTimeTextView);
         this.gameDataLast1Of5TextView = (TextView) fragmentGameData.findViewById(R.id.gameDataLast1Of5TextView);
         this.gameDataLast2Of5TextView = (TextView) fragmentGameData.findViewById(R.id.gameDataLast2Of5TextView);
         this.gameDataLast3Of5TextView = (TextView) fragmentGameData.findViewById(R.id.gameDataLast3Of5TextView);
@@ -43,11 +44,24 @@ public class FragmentGameData extends Fragment {
         this.gameDataLast3Of5TextView.setText("");
         this.gameDataLast4Of5TextView.setText("");
         this.gameDataLast5Of5TextView.setText("");
+        this.refresh();
 
+        return fragmentGameData;
+    }
+
+    @Override
+    public void onResume() {
+        super.onResume();
+        refresh();
+    }
+
+    private void refresh(){
         if(this.timeMeasureComponentInterface.getTimesPlayed() > 0) {
             this.gameDataBestTimeTextView.setText(this.timeMeasureComponentInterface.getMyBestTimeOfGame().toString());
-            this.gameDataAvgTimeTextView.setText(this.timeMeasureComponentInterface.getMyAvgTimeOfGame().toString());
+            this.gameDataAvgTimeTextView.setText(this.timeMeasureComponentInterface.getMyAvgTimeOfGame().toString().substring(0,7) + " ms");
+            /*
             TimeType[] timeDatas = this.timeMeasureComponentInterface.getAllTimeOfGame();
+
             for(int i = 0; i < 5 && i < timeDatas.length; i++){
                 switch(i){
                     case 0:{
@@ -72,7 +86,7 @@ public class FragmentGameData extends Fragment {
                     }
                 }
             }
+            */
         }
-        return fragmentGameData;
     }
 }

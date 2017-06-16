@@ -8,6 +8,8 @@ import com.emptyshit.hsay.dataTypes.*;
  */
 public interface TimeMeasureComponentInterface {
 
+    boolean checkExistenceOfTimeData();
+
     /**
      * starting the local chronograph
      * @return code(0 = chronograph stopped, 1 = chronograph running)
